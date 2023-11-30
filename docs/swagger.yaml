@@ -1,0 +1,422 @@
+definitions:
+  domain.AuthCompanyData:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      estates:
+        items:
+          $ref: '#/definitions/domain.AuthEstateData'
+        type: array
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  domain.AuthData:
+    properties:
+      token:
+        type: string
+    type: object
+  domain.AuthEstateData:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  domain.AuthLoggedData:
+    properties:
+      code:
+        type: string
+      company:
+        items:
+          $ref: '#/definitions/domain.AuthCompanyData'
+        type: array
+      email:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  domain.AuthRequest:
+    properties:
+      domain:
+        type: string
+      ldap:
+        type: boolean
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  domain.AuthResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+  domain.MobData:
+    properties:
+      ba:
+        type: string
+      created_by:
+        type: string
+      created_date:
+        type: string
+      created_time:
+        type: string
+      dam_date:
+        type: string
+      id:
+        type: integer
+      loc:
+        type: string
+      no_inspec:
+        type: string
+      note:
+        type: string
+      obj_part:
+        type: string
+      photo:
+        type: string
+      plan_date:
+        type: string
+      running_account:
+        type: string
+      status:
+        type: string
+      vehicle_type:
+        type: string
+      zinspec_vehicletype_id:
+        type: integer
+      ztuagri_runacct_id:
+        type: integer
+    type: object
+  domain.MobResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+  domain.ObjPartData:
+    properties:
+      id:
+        type: integer
+      obj_part:
+        type: string
+      vehicle_type:
+        type: string
+      zinspec_vehicletype_id:
+        type: integer
+    type: object
+  domain.ObjPartResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+  domain.PlanData:
+    properties:
+      ba:
+        type: string
+      company_code:
+        type: string
+      id:
+        type: integer
+      inspect_date:
+        type: string
+      inspect_time:
+        type: string
+      plan_date:
+        type: string
+      running_account:
+        type: integer
+      status:
+        type: string
+      ztuagri_runacct_id:
+        type: integer
+    type: object
+  domain.PlanResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+  domain.RunAcctData:
+    properties:
+      anln1:
+        type: integer
+      class_group:
+        type: string
+      class_ra:
+        type: string
+      company_code:
+        type: string
+      equnr:
+        type: string
+      estate:
+        type: string
+      id:
+        type: integer
+      kostl:
+        type: string
+      license_plate:
+        type: string
+      running_account:
+        type: string
+      running_text:
+        type: string
+      status_flag:
+        type: string
+    type: object
+  domain.RunAcctResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+  domain.VehicleTypeData:
+    properties:
+      code:
+        type: string
+      id:
+        type: integer
+      obj_part:
+        type: string
+      vehicle_type:
+        type: string
+    type: object
+  domain.VehicleTypeResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+host: dev.indoagri.co.id
+info:
+  contact:
+    email: support@swagger.io
+    name: ICT INDOAGRI
+    url: http://www.swagger.io/support
+  description: INSPECTION RA API SERVICE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API SWAGGER FOR INSPECTION RA API SERVICE
+  version: 1.0.0
+paths:
+  /api/v1/auth/logged:
+    get:
+      consumes:
+      - application/json
+      description: Get Logged User
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.AuthResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.AuthLoggedData'
+              type: object
+      summary: Get Logged User
+      tags:
+      - Auth
+  /api/v1/auth/sign_in:
+    post:
+      consumes:
+      - application/json
+      description: Sign In
+      parameters:
+      - description: ' AuthRequest Schema '
+        in: body
+        name: AuthRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.AuthResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.AuthData'
+              type: object
+      summary: Sign In
+      tags:
+      - Auth
+  /api/v1/mob:
+    get:
+      consumes:
+      - application/json
+      description: Get Mob
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MobResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.MobData'
+              type: object
+      summary: Get Mob
+      tags:
+      - Mob
+  /api/v1/objpart:
+    get:
+      consumes:
+      - application/json
+      description: Get Object Part
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.ObjPartResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.ObjPartData'
+              type: object
+      summary: Get Object Part
+      tags:
+      - Object Part
+  /api/v1/plan:
+    get:
+      consumes:
+      - application/json
+      description: Get Plan
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.PlanResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.PlanData'
+              type: object
+      summary: Get Plan
+      tags:
+      - Plan
+  /api/v1/runacct:
+    get:
+      consumes:
+      - application/json
+      description: Get Running Account
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.RunAcctResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.RunAcctData'
+              type: object
+      summary: Get Running Account
+      tags:
+      - Running Account
+  /api/v1/vehicle_type:
+    get:
+      consumes:
+      - application/json
+      description: Get Vehicle Type
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.VehicleTypeResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.VehicleTypeData'
+              type: object
+      summary: Get Vehicle Type
+      tags:
+      - Vehicle Type
+swagger: "2.0"
