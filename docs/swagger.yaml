@@ -98,7 +98,42 @@ definitions:
       running_account:
         type: string
       status:
+        type: integer
+      vehicle_type:
         type: string
+      zinspec_vehicletype_id:
+        type: integer
+      ztuagri_runacct_id:
+        type: integer
+    type: object
+  domain.MobRequest:
+    properties:
+      ba:
+        type: string
+      created_by:
+        type: string
+      created_date:
+        type: string
+      created_time:
+        type: string
+      dam_date:
+        type: string
+      loc:
+        type: string
+      no_inspec:
+        type: string
+      note:
+        type: string
+      obj_part:
+        type: string
+      photo:
+        type: string
+      plan_date:
+        type: string
+      running_account:
+        type: string
+      status:
+        type: integer
       vehicle_type:
         type: string
       zinspec_vehicletype_id:
@@ -332,6 +367,43 @@ paths:
                   $ref: '#/definitions/domain.MobData'
               type: object
       summary: Get Mob
+      tags:
+      - Mob
+  /api/v1/mob/batch:
+    post:
+      consumes:
+      - application/json
+      description: Insert Inspection
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' MobRequest Schema '
+        in: body
+        name: MobRequest
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/domain.MobRequest'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MobResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.MobData'
+                  type: array
+              type: object
+      summary: Insert Inspection
       tags:
       - Mob
   /api/v1/objpart:

@@ -13,7 +13,7 @@ type MobRequest struct {
 	VehicleType          string `json:"vehicle_type" gorm:"column:vehicle_type;"`
 	ObjPart              string `json:"obj_part" gorm:"column:obj_part;"`
 	DamDate              string `json:"dam_date" gorm:"column:dam_date;"`
-	Status               string `json:"status" gorm:"column:status;"`
+	Status               int32  `json:"status" gorm:"column:status;"`
 	Loc                  string `json:"loc" gorm:"column:loc;"`
 	Photo                string `json:"photo" gorm:"column:photo"`
 	Note                 string `json:"note" gorm:"column:note"`
@@ -30,6 +30,6 @@ type MobData struct {
 	MobRequest
 }
 
-func (MobData) TableName() string {
+func (MobRequest) TableName() string {
 	return "zinspec_mob"
 }

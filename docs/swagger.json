@@ -153,6 +153,66 @@
                 }
             }
         },
+        "/api/v1/mob/batch": {
+            "post": {
+                "description": "Insert Inspection",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mob"
+                ],
+                "summary": "Insert Inspection",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " MobRequest Schema ",
+                        "name": "MobRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.MobRequest"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.MobResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.MobData"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/objpart": {
             "get": {
                 "description": "Get Object Part",
@@ -597,7 +657,60 @@
                     "type": "string"
                 },
                 "status": {
+                    "type": "integer"
+                },
+                "vehicle_type": {
                     "type": "string"
+                },
+                "zinspec_vehicletype_id": {
+                    "type": "integer"
+                },
+                "ztuagri_runacct_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.MobRequest": {
+            "type": "object",
+            "properties": {
+                "ba": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "created_date": {
+                    "type": "string"
+                },
+                "created_time": {
+                    "type": "string"
+                },
+                "dam_date": {
+                    "type": "string"
+                },
+                "loc": {
+                    "type": "string"
+                },
+                "no_inspec": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "obj_part": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "plan_date": {
+                    "type": "string"
+                },
+                "running_account": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "vehicle_type": {
                     "type": "string"
