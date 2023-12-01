@@ -6,6 +6,7 @@ import (
 	"inspection-ra/modules/auth"
 	"inspection-ra/modules/mob"
 	"inspection-ra/modules/objpart"
+	"inspection-ra/modules/plan"
 	"inspection-ra/modules/runacct"
 	"inspection-ra/modules/vehicletype"
 	"log"
@@ -54,6 +55,7 @@ func main() {
 
 	mob.NewMobHandler(v1, mob.MobRegistry(db))
 	auth.NewAuthHandler(v1, auth.AuthRegistry(db))
+	plan.NewPlanHandler(v1, plan.PlanRegistry(db))
 	runacct.NewRunAcctHandler(v1, runacct.RunAcctRegistry(db))
 	objpart.NewObjPartHandler(v1, objpart.ObjPartRegistry(db))
 	vehicletype.NewVehicleTypeHandler(v1, vehicletype.VehicleTypeRegistry(db))

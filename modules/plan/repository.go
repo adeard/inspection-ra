@@ -8,6 +8,8 @@ import (
 
 type Repository interface {
 	FindAll() ([]domain.PlanData, error)
+	Store(input domain.PlanRequest) (domain.PlanRequest, error)
+	Insert(input []domain.PlanRequest) ([]domain.PlanRequest, error)
 }
 
 type repository struct {
@@ -23,4 +25,16 @@ func (r *repository) FindAll() ([]domain.PlanData, error) {
 	err := r.db.Find(&plan).Error
 
 	return plan, err
+}
+
+func (r *repository) Store(planData domain.PlanRequest) (domain.PlanRequest, error) {
+	err := r.db.Create(&planData).Error
+
+	return planData, err
+}
+
+func (r *repository) Insert(planData []domain.PlanRequest) ([]domain.PlanRequest, error) {
+	err := r.db.Create(&planData).Error
+
+	return planData, err
 }

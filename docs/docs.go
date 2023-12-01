@@ -248,6 +248,118 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Store Plan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Store Plan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " PlanRequest Schema ",
+                        "name": "PlanRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.PlanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.PlanResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.PlanData"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/plan/batch": {
+            "post": {
+                "description": "Insert Plan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Insert Plan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " PlanRequest Schema ",
+                        "name": "PlanRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.PlanRequest"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.PlanResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.PlanData"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
             }
         },
         "/api/v1/runacct": {
@@ -568,10 +680,45 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "running_account": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "status": {
                     "type": "string"
+                },
+                "week": {
+                    "type": "integer"
+                },
+                "ztuagri_runacct_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.PlanRequest": {
+            "type": "object",
+            "properties": {
+                "ba": {
+                    "type": "string"
+                },
+                "company_code": {
+                    "type": "string"
+                },
+                "inspect_date": {
+                    "type": "string"
+                },
+                "inspect_time": {
+                    "type": "string"
+                },
+                "plan_date": {
+                    "type": "string"
+                },
+                "running_account": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "week": {
+                    "type": "integer"
                 },
                 "ztuagri_runacct_id": {
                     "type": "integer"

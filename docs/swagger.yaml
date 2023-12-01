@@ -148,9 +148,32 @@ definitions:
       plan_date:
         type: string
       running_account:
-        type: integer
+        type: string
       status:
         type: string
+      week:
+        type: integer
+      ztuagri_runacct_id:
+        type: integer
+    type: object
+  domain.PlanRequest:
+    properties:
+      ba:
+        type: string
+      company_code:
+        type: string
+      inspect_date:
+        type: string
+      inspect_time:
+        type: string
+      plan_date:
+        type: string
+      running_account:
+        type: string
+      status:
+        type: string
+      week:
+        type: integer
       ztuagri_runacct_id:
         type: integer
     type: object
@@ -363,6 +386,75 @@ paths:
                   $ref: '#/definitions/domain.PlanData'
               type: object
       summary: Get Plan
+      tags:
+      - Plan
+    post:
+      consumes:
+      - application/json
+      description: Store Plan
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' PlanRequest Schema '
+        in: body
+        name: PlanRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.PlanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.PlanResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.PlanData'
+              type: object
+      summary: Store Plan
+      tags:
+      - Plan
+  /api/v1/plan/batch:
+    post:
+      consumes:
+      - application/json
+      description: Insert Plan
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' PlanRequest Schema '
+        in: body
+        name: PlanRequest
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/domain.PlanRequest'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.PlanResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.PlanData'
+                  type: array
+              type: object
+      summary: Insert Plan
       tags:
       - Plan
   /api/v1/runacct:
