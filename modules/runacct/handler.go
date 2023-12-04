@@ -27,13 +27,23 @@ func NewRunAcctHandler(v1 *gin.RouterGroup, runAcctService Service) {
 // @Description Get Running Account
 // @Accept  json
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param RunAcctRequest query domain.RunAcctRequest true " RunAcctRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.RunAcctResponse{data=domain.RunAcctData}
 // @Router /api/v1/runacct [get]
 // @Tags Running Account
 func (h *runAcctHandler) GetAll(c *gin.Context) {
 	start := time.Now()
-	runAcct, err := h.runAcctService.GetAll()
+
+	input := domain.RunAcctRequest{}
+
+	err := c.Bind(&input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	runAcct, err := h.runAcctService.GetAll(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.RunAcctResponse{
 			Message:     err.Error(),

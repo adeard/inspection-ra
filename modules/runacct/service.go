@@ -3,7 +3,7 @@ package runacct
 import "inspection-ra/domain"
 
 type Service interface {
-	GetAll() ([]domain.RunAcctData, error)
+	GetAll(input domain.RunAcctRequest) ([]domain.RunAcctData, error)
 }
 
 type service struct {
@@ -14,9 +14,9 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) GetAll() ([]domain.RunAcctData, error) {
+func (s *service) GetAll(input domain.RunAcctRequest) ([]domain.RunAcctData, error) {
 
-	runAcct, err := s.repository.FindAll()
+	runAcct, err := s.repository.FindAll(input)
 
 	return runAcct, err
 }

@@ -490,6 +490,61 @@
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "anln1",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "class_group",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "class_ra",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "company_code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "equnr",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "estate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "kostl",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "license_plate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "running_account",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "running_text",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "status_flag",
+                        "in": "query"
                     }
                 ],
                 "responses": {

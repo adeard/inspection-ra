@@ -586,6 +586,39 @@ paths:
         name: Authorization
         required: true
         type: string
+      - in: query
+        name: anln1
+        type: integer
+      - in: query
+        name: class_group
+        type: string
+      - in: query
+        name: class_ra
+        type: string
+      - in: query
+        name: company_code
+        type: string
+      - in: query
+        name: equnr
+        type: string
+      - in: query
+        name: estate
+        type: string
+      - in: query
+        name: kostl
+        type: string
+      - in: query
+        name: license_plate
+        type: string
+      - in: query
+        name: running_account
+        type: string
+      - in: query
+        name: running_text
+        type: string
+      - in: query
+        name: status_flag
+        type: string
       produces:
       - application/json
       responses:
