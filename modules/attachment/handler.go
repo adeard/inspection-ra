@@ -33,7 +33,7 @@ func NewAttachmentHandler(v1 *gin.RouterGroup, attachmentService Service) {
 // @Param no_inspec formData string true " AttachmentRequest Schema "
 // @Param image_category formData string true " AttachmentRequest Schema "
 // @Produce  json
-// @Success 200 {object} domain.AttachmentResponse{data=domain.AttachmentData}
+// @Success 200 {object} domain.AttachmentResponse
 // @Router /api/v1/attachment [post]
 // @Tags Attachment
 func (h *attachmentHandler) Store(c *gin.Context) {

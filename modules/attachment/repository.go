@@ -7,7 +7,7 @@ import (
 )
 
 type Repository interface {
-	Store(input domain.AttachmentRequest) (domain.AttachmentRequest, error)
+	Store(input domain.AttachmentData) (domain.AttachmentData, error)
 }
 
 type repository struct {
@@ -18,7 +18,7 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) Store(attachment domain.AttachmentRequest) (domain.AttachmentRequest, error) {
+func (r *repository) Store(attachment domain.AttachmentData) (domain.AttachmentData, error) {
 	err := r.db.Create(&attachment).Error
 
 	return attachment, err

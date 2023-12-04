@@ -18,6 +18,11 @@ type AuthData struct {
 	Token string `json:"token"`
 }
 
+type AuthLoggedParsedData struct {
+	AuthLoggedData
+	Employees []AuthEmployeeData `json:"employees"`
+}
+
 type AuthLoggedData struct {
 	Id       string            `json:"id"`
 	Code     string            `json:"code"`
@@ -40,6 +45,19 @@ type AuthEstateData struct {
 	Code        string `json:"code"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+}
+
+type AuthEmployeeData struct {
+	Id          string `json:"id"`
+	Code        string `json:"code"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Nik         string `json:"nik"`
+	Nickname    string `json:"nickname"`
+	Fullname    string `json:"fullname"`
+	PhoneNumber string `json:"phone_number"`
+	Address     string `json:"address"`
+	Department  string `json:"department"`
 }
 
 type AuthLoggedResponse struct {

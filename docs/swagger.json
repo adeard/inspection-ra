@@ -17,6 +17,60 @@
     },
     "host": "dev.indoagri.co.id",
     "paths": {
+        "/api/v1/attachment": {
+            "post": {
+                "description": "Upload File",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Upload File",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "no_inspec",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "image_category",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.AttachmentResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/auth/logged": {
             "get": {
                 "description": "Get Logged User",
@@ -507,6 +561,18 @@
         }
     },
     "definitions": {
+        "domain.AttachmentResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "elapsed_time": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "domain.AuthCompanyData": {
             "type": "object",
             "properties": {

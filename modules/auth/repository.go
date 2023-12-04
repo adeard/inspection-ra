@@ -94,9 +94,19 @@ func (r *repository) GetLogged(token string) (domain.AuthLoggedData, error) {
 
 	body, _ := io.ReadAll(resp.Body)
 
-	var result domain.AuthLoggedData
-	if err := json.Unmarshal(body, &result); err != nil {
-		return result, err
+	var parsed domain.AuthLoggedParsedData
+
+	if err := json.Unmarshal(body, &parsed); err != nil {
+		return domain.AuthLoggedData{}, err
+	}
+
+	result := domain.AuthLoggedData{
+		Id:       parsed.Id,
+		Code:     parsed.Code,
+		Username: parsed.Username,
+		Email:    parsed.Email,
+		Fullname: parsed.Employees[0].Fullname,
+		Company:  parsed.Company,
 	}
 
 	return result, nil
