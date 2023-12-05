@@ -1,6 +1,9 @@
 package auth
 
-import "inspection-ra/domain"
+import (
+	"inspection-ra/domain"
+	"inspection-ra/helpers"
+)
 
 type Service interface {
 	AuthTest() (domain.Auth, error)
@@ -28,6 +31,11 @@ func (s *service) SignIn(authinput domain.AuthRequest) (domain.AuthData, error) 
 	authinput.Ldap = true
 
 	auth, err := s.repository.SignIn(domain.Auth(authinput))
+	if auth.Token != "" {
+		message, _ := helpers.CheckUserAccess(auth.Token)
+
+		auth.Message = message
+	}
 
 	return auth, err
 }

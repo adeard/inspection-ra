@@ -15,7 +15,8 @@ type AuthRequest struct {
 }
 
 type AuthData struct {
-	Token string `json:"token"`
+	Token   string `json:"token"`
+	Message string `json:"message"`
 }
 
 type AuthLoggedParsedData struct {

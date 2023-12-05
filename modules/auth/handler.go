@@ -66,6 +66,15 @@ func (h *authHandler) SignIn(c *gin.Context) {
 		return
 	}
 
+	if auth.Token == "" {
+		c.JSON(http.StatusBadRequest, domain.AuthResponse{
+			Message:     auth.Message,
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
 	c.JSON(http.StatusOK, domain.AuthResponse{
 		Data:        auth,
 		ElapsedTime: fmt.Sprint(time.Since(start)),

@@ -62,8 +62,6 @@ func (r *repository) SignIn(auth domain.Auth) (domain.AuthData, error) {
 
 	body, _ := io.ReadAll(resp.Body)
 
-	fmt.Println(string(body))
-
 	var result domain.AuthData
 	if err := json.Unmarshal(body, &result); err != nil {
 		return result, err
