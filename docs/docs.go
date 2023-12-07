@@ -661,6 +661,9 @@ const docTemplate = `{
         "domain.AuthData": {
             "type": "object",
             "properties": {
+                "message": {
+                    "type": "string"
+                },
                 "token": {
                     "type": "string"
                 }
@@ -748,6 +751,9 @@ const docTemplate = `{
                 "ba": {
                     "type": "string"
                 },
+                "coordinate": {
+                    "type": "string"
+                },
                 "created_by": {
                     "type": "string"
                 },
@@ -760,7 +766,13 @@ const docTemplate = `{
                 "dam_date": {
                     "type": "string"
                 },
+                "dam_detail": {
+                    "type": "string"
+                },
                 "id": {
+                    "type": "integer"
+                },
+                "is_gps": {
                     "type": "integer"
                 },
                 "loc": {
@@ -804,6 +816,9 @@ const docTemplate = `{
                 "ba": {
                     "type": "string"
                 },
+                "coordinate": {
+                    "type": "string"
+                },
                 "created_by": {
                     "type": "string"
                 },
@@ -815,6 +830,12 @@ const docTemplate = `{
                 },
                 "dam_date": {
                     "type": "string"
+                },
+                "dam_detail": {
+                    "type": "string"
+                },
+                "is_gps": {
+                    "type": "integer"
                 },
                 "loc": {
                     "type": "string"

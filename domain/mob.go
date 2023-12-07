@@ -23,6 +23,9 @@ type MobRequest struct {
 	CreatedTime          string `json:"created_time" gorm:"column:created_time"`
 	ZtuAgriRunAcctId     int32  `json:"ztuagri_runacct_id" gorm:"column:ztuagri_runacct_id"`
 	ZinspecVehicleTypeId int32  `json:"zinspec_vehicletype_id" gorm:"column:zinspec_vehicletype_id"`
+	Coordinate           string `json:"coordinate" gorm:"column:coordinate"`
+	IsGps                int32  `json:"is_gps" gorm:"column:is_gps"`
+	DamDetail            string `json:"dam_detail" gorm:"column:dam_detail"`
 }
 
 type MobData struct {
