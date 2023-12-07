@@ -576,7 +576,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/vehicle_type": {
+        "/api/v1/vehicletype": {
             "get": {
                 "description": "Get Vehicle Type",
                 "consumes": [

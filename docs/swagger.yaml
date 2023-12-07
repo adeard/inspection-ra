@@ -648,7 +648,7 @@ paths:
       summary: Get Running Account
       tags:
       - Running Account
-  /api/v1/vehicle_type:
+  /api/v1/vehicletype:
     get:
       consumes:
       - application/json

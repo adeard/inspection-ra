@@ -29,7 +29,7 @@ func NewVehicleTypeHandler(v1 *gin.RouterGroup, vehicleTypeService Service) {
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
 // @Produce  json
 // @Success 200 {object} domain.VehicleTypeResponse{data=domain.VehicleTypeData}
-// @Router /api/v1/vehicle_type [get]
+// @Router /api/v1/vehicletype [get]
 // @Tags Vehicle Type
 func (h *vehicleTypeHandler) GetAll(c *gin.Context) {
 	start := time.Now()
