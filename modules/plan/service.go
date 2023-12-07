@@ -1,11 +1,13 @@
 package plan
 
-import "inspection-ra/domain"
+import (
+	"inspection-ra/domain"
+)
 
 type Service interface {
-	GetAll() ([]domain.PlanData, error)
 	Store(input domain.PlanRequest) (domain.PlanRequest, error)
-	Insert(input []domain.PlanRequest) ([]domain.PlanRequest, error)
+	Insert(input []domain.PlanRequest) (string, error)
+	GetAll() ([]domain.PlanData, error)
 }
 
 type service struct {
@@ -30,9 +32,29 @@ func (s *service) Store(input domain.PlanRequest) (domain.PlanRequest, error) {
 	return planData, err
 }
 
-func (s *service) Insert(input []domain.PlanRequest) ([]domain.PlanRequest, error) {
+func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 
-	planData, err := s.repository.Insert(input)
+	existPlanIds := []int32{}
 
-	return planData, err
+	for _, plan := range input {
+		filterCheck := domain.PlanRequest{
+			CompanyCode:    plan.CompanyCode,
+			Ba:             plan.Ba,
+			RunningAccount: plan.RunningAccount,
+			PlanDate:       plan.PlanDate,
+		}
+
+		check, err := s.repository.GetDetail(filterCheck)
+		if err == nil {
+			existPlanIds = append(existPlanIds, check.Id)
+		}
+	}
+
+	if len(existPlanIds) > 0 {
+		s.repository.DeleteBatch(existPlanIds)
+	}
+
+	result, err := s.repository.Insert(input)
+
+	return result, err
 }
