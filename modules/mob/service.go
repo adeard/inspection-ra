@@ -4,7 +4,7 @@ import "inspection-ra/domain"
 
 type Service interface {
 	GetAll() ([]domain.MobData, error)
-	Insert(input []domain.MobRequest) ([]domain.MobRequest, error)
+	Insert(input []domain.MobRequest) (string, error)
 }
 
 type service struct {
@@ -22,7 +22,7 @@ func (s *service) GetAll() ([]domain.MobData, error) {
 	return mob, err
 }
 
-func (s *service) Insert(input []domain.MobRequest) ([]domain.MobRequest, error) {
+func (s *service) Insert(input []domain.MobRequest) (string, error) {
 
 	mobData, err := s.repository.Insert(input)
 

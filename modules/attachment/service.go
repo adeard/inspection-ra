@@ -6,7 +6,7 @@ import (
 )
 
 type Service interface {
-	Store(input domain.AttachmentRequest) (domain.AttachmentData, error)
+	Store(input domain.AttachmentRequest) (string, error)
 }
 
 type service struct {
@@ -17,7 +17,7 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) Store(input domain.AttachmentRequest) (domain.AttachmentData, error) {
+func (s *service) Store(input domain.AttachmentRequest) (string, error) {
 	attachmentData := domain.AttachmentData{
 		NoInspec:      input.NoInspec,
 		ZinspecMobId:  input.ZinspecMobId,

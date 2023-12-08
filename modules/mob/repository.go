@@ -8,7 +8,7 @@ import (
 
 type Repository interface {
 	FindAll() ([]domain.MobData, error)
-	Insert(input []domain.MobRequest) ([]domain.MobRequest, error)
+	Insert(input []domain.MobRequest) (string, error)
 }
 
 type repository struct {
@@ -26,8 +26,8 @@ func (r *repository) FindAll() ([]domain.MobData, error) {
 	return mob, err
 }
 
-func (r *repository) Insert(mobData []domain.MobRequest) ([]domain.MobRequest, error) {
+func (r *repository) Insert(mobData []domain.MobRequest) (string, error) {
 	err := r.db.Create(&mobData).Error
 
-	return mobData, err
+	return "success", err
 }
