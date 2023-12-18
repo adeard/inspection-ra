@@ -79,6 +79,31 @@ definitions:
       message:
         type: string
     type: object
+  domain.ConfigurationData:
+    properties:
+      id:
+        type: integer
+      interval:
+        type: integer
+      interval_type:
+        type: string
+      is_active:
+        type: boolean
+      last_week:
+        type: integer
+      plan_date:
+        type: string
+      valid_from:
+        type: string
+    type: object
+  domain.ConfigurationResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
   domain.MobData:
     properties:
       ba:
@@ -401,6 +426,33 @@ paths:
       summary: Sign In
       tags:
       - Auth
+  /api/v1/config/check:
+    get:
+      consumes:
+      - application/json
+      description: Check Current Config
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.ConfigurationResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.ConfigurationData'
+              type: object
+      summary: Check Current Config
+      tags:
+      - Inspect Configuration
   /api/v1/mob:
     get:
       consumes:

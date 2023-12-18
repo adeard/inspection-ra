@@ -169,6 +169,51 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/config/check": {
+            "get": {
+                "description": "Check Current Config",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inspect Configuration"
+                ],
+                "summary": "Check Current Config",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.ConfigurationResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.ConfigurationData"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/mob": {
             "get": {
                 "description": "Get Mob",
@@ -734,6 +779,44 @@ const docTemplate = `{
             }
         },
         "domain.AuthResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "elapsed_time": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.ConfigurationData": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "interval": {
+                    "type": "integer"
+                },
+                "interval_type": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "last_week": {
+                    "type": "integer"
+                },
+                "plan_date": {
+                    "type": "string"
+                },
+                "valid_from": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.ConfigurationResponse": {
             "type": "object",
             "properties": {
                 "data": {},

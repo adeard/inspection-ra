@@ -5,6 +5,7 @@ import (
 	"inspection-ra/docs"
 	"inspection-ra/modules/attachment"
 	"inspection-ra/modules/auth"
+	"inspection-ra/modules/configuration"
 	"inspection-ra/modules/mob"
 	"inspection-ra/modules/objpart"
 	"inspection-ra/modules/plan"
@@ -61,6 +62,7 @@ func main() {
 	objpart.NewObjPartHandler(v1, objpart.ObjPartRegistry(db))
 	attachment.NewAttachmentHandler(v1, attachment.AttachmentRegistry(db))
 	vehicletype.NewVehicleTypeHandler(v1, vehicletype.VehicleTypeRegistry(db))
+	configuration.NewConfigurationHandler(v1, configuration.ConfigurationRegistry(db))
 
 	// router.Run(":86")
 
