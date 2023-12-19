@@ -39,8 +39,6 @@ func (h *configurationHandler) CheckConfig(c *gin.Context) {
 
 	configuration, err := h.configurationService.CheckConfig(configurationRequest)
 
-	fmt.Println(configuration)
-
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.ConfigurationResponse{
 			Message:     err.Error(),
