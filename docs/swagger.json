@@ -378,6 +378,51 @@
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "ba",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "company_code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "inspect_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "inspect_time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "plan_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "running_account",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "week",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "ztuagri_runacct_id",
+                        "in": "query"
                     }
                 ],
                 "responses": {

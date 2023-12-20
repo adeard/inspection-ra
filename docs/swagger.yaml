@@ -556,6 +556,33 @@ paths:
         name: Authorization
         required: true
         type: string
+      - in: query
+        name: ba
+        type: string
+      - in: query
+        name: company_code
+        type: string
+      - in: query
+        name: inspect_date
+        type: string
+      - in: query
+        name: inspect_time
+        type: string
+      - in: query
+        name: plan_date
+        type: string
+      - in: query
+        name: running_account
+        type: string
+      - in: query
+        name: status
+        type: string
+      - in: query
+        name: week
+        type: integer
+      - in: query
+        name: ztuagri_runacct_id
+        type: integer
       produces:
       - application/json
       responses:

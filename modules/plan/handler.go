@@ -32,13 +32,18 @@ func NewPlanHandler(v1 *gin.RouterGroup, planService Service) {
 // @Description Get Plan
 // @Accept  json
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param PlanRequest query domain.PlanRequest true " PlanRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.PlanResponse{data=domain.PlanData}
 // @Router /api/v1/plan [get]
 // @Tags Plan
 func (h *planHandler) GetAll(c *gin.Context) {
 	start := time.Now()
-	plan, err := h.planService.GetAll()
+	var planRequest domain.PlanRequest
+
+	c.ShouldBindJSON(&planRequest)
+
+	plan, err := h.planService.GetAll(planRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),

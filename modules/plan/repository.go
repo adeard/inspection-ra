@@ -9,7 +9,7 @@ import (
 type Repository interface {
 	Store(input domain.PlanRequest) (domain.PlanRequest, error)
 	Insert(input []domain.PlanRequest) (string, error)
-	FindAll() ([]domain.PlanData, error)
+	FindAll(input domain.PlanRequest) ([]domain.PlanData, error)
 	GetById(id int32) (domain.PlanData, error)
 	GetDetail(input domain.PlanRequest) (domain.PlanData, error)
 	DeleteBatch(ids []int32) (string, error)
@@ -23,9 +23,24 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindAll() ([]domain.PlanData, error) {
+func (r *repository) FindAll(input domain.PlanRequest) ([]domain.PlanData, error) {
 	var plan []domain.PlanData
-	err := r.db.Find(&plan).Error
+
+	q := r.db.Debug().Table("zinspec_plan")
+
+	if input.Ba != "" {
+		q = q.Where("ba = ?", input.Ba)
+	}
+
+	if input.Week > 0 {
+		q = q.Where("week = ?", input.Week)
+	}
+
+	if input.PlanDate != "" {
+		q = q.Where("plan_date = ?", input.PlanDate)
+	}
+
+	err := q.Find(&plan).Error
 
 	return plan, err
 }

@@ -7,7 +7,7 @@ import (
 type Service interface {
 	Store(input domain.PlanRequest) (domain.PlanRequest, error)
 	Insert(input []domain.PlanRequest) (string, error)
-	GetAll() ([]domain.PlanData, error)
+	GetAll(input domain.PlanRequest) ([]domain.PlanData, error)
 }
 
 type service struct {
@@ -18,9 +18,9 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) GetAll() ([]domain.PlanData, error) {
+func (s *service) GetAll(input domain.PlanRequest) ([]domain.PlanData, error) {
 
-	plan, err := s.repository.FindAll()
+	plan, err := s.repository.FindAll(input)
 
 	return plan, err
 }
