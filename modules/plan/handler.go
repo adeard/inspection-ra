@@ -41,7 +41,7 @@ func (h *planHandler) GetAll(c *gin.Context) {
 	start := time.Now()
 	var planRequest domain.PlanRequest
 
-	c.ShouldBindJSON(&planRequest)
+	c.ShouldBind(&planRequest)
 
 	plan, err := h.planService.GetAll(planRequest)
 	if err != nil {

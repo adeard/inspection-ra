@@ -1,6 +1,7 @@
 package plan
 
 import (
+	"fmt"
 	"inspection-ra/domain"
 
 	"gorm.io/gorm"
@@ -26,6 +27,8 @@ func NewRepository(db *gorm.DB) *repository {
 func (r *repository) FindAll(input domain.PlanRequest) ([]domain.PlanData, error) {
 	var plan []domain.PlanData
 
+	fmt.Println(input)
+
 	q := r.db.Debug().Table("zinspec_plan")
 
 	if input.Ba != "" {
@@ -38,6 +41,10 @@ func (r *repository) FindAll(input domain.PlanRequest) ([]domain.PlanData, error
 
 	if input.PlanDate != "" {
 		q = q.Where("plan_date = ?", input.PlanDate)
+	}
+
+	if input.CompanyCode != "" {
+		q = q.Where("company_code = ?", input.CompanyCode)
 	}
 
 	err := q.Find(&plan).Error
