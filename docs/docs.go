@@ -1208,7 +1208,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "http://202.158.14.235:4222/InspectionRA/",
+	Host:             "http://202.158.14.235:4222/",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "API SWAGGER FOR INSPECTION RA API SERVICE",
