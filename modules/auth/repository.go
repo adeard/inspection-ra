@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"io"
 	"net/http"
 	"net/url"
@@ -57,11 +58,14 @@ func (r *repository) SignIn(auth domain.Auth) (domain.AuthData, error) {
 	// client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		helpers.LogInit(err.Error())
 		panic(err)
 	}
 	defer resp.Body.Close()
 
 	body, _ := io.ReadAll(resp.Body)
+
+	helpers.LogInit(string(body))
 
 	var result domain.AuthData
 	if err := json.Unmarshal(body, &result); err != nil {

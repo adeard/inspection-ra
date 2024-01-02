@@ -21,5 +21,6 @@
 go.work
 
 /images
+/logs
 /backup*
 .env
