@@ -22,7 +22,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
-// @Host dev.indoagri.co.id
+// @Host http://202.158.14.235:4222/InspectionRA/
 // @title API SWAGGER FOR INSPECTION RA API SERVICE
 // @version 1.0.0
 // @description INSPECTION RA API SERVICE
