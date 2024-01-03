@@ -7,7 +7,7 @@ import (
 )
 
 type Repository interface {
-	FindAll() ([]domain.MobData, error)
+	FindAll(input domain.MobRequest) ([]domain.MobData, error)
 	Insert(input []domain.MobRequest) (string, error)
 }
 
@@ -19,9 +19,20 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindAll() ([]domain.MobData, error) {
+func (r *repository) FindAll(input domain.MobRequest) ([]domain.MobData, error) {
 	var mob []domain.MobData
-	err := r.db.Find(&mob).Error
+
+	q := r.db.Debug().Table("zinspec_mob")
+
+	if input.Ba != "" {
+		q = q.Where("ba = ?", input.Ba)
+	}
+
+	if input.PlanDate != "" {
+		q = q.Where("plan_date = ?", input.PlanDate)
+	}
+
+	err := q.Find(&mob).Error
 
 	return mob, err
 }

@@ -30,13 +30,18 @@ func NewMobHandler(v1 *gin.RouterGroup, mobService Service) {
 // @Description Get Mob
 // @Accept  json
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param MobRequest query domain.MobRequest true " MobRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.MobResponse{data=domain.MobData}
 // @Router /api/v1/mob [get]
 // @Tags Mob
 func (h *mobHandler) GetAll(c *gin.Context) {
 	start := time.Now()
-	mob, err := h.mobService.GetAll()
+	mobRequest := domain.MobRequest{}
+
+	c.ShouldBind(&mobRequest)
+
+	mob, err := h.mobService.GetAll(mobRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),

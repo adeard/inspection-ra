@@ -235,6 +235,101 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "ba",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coordinate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "created_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "created_time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "dam_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "dam_detail",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "is_gps",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "loc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "no_inspec",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "note",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "obj_part",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "photo",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "plan_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "running_account",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vehicle_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "zinspec_vehicletype_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "ztuagri_runacct_id",
+                        "in": "query"
                     }
                 ],
                 "responses": {

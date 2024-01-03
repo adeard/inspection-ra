@@ -465,6 +465,63 @@ paths:
         name: Authorization
         required: true
         type: string
+      - in: query
+        name: ba
+        type: string
+      - in: query
+        name: coordinate
+        type: string
+      - in: query
+        name: created_by
+        type: string
+      - in: query
+        name: created_date
+        type: string
+      - in: query
+        name: created_time
+        type: string
+      - in: query
+        name: dam_date
+        type: string
+      - in: query
+        name: dam_detail
+        type: string
+      - in: query
+        name: is_gps
+        type: integer
+      - in: query
+        name: loc
+        type: string
+      - in: query
+        name: no_inspec
+        type: string
+      - in: query
+        name: note
+        type: string
+      - in: query
+        name: obj_part
+        type: string
+      - in: query
+        name: photo
+        type: string
+      - in: query
+        name: plan_date
+        type: string
+      - in: query
+        name: running_account
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: vehicle_type
+        type: string
+      - in: query
+        name: zinspec_vehicletype_id
+        type: integer
+      - in: query
+        name: ztuagri_runacct_id
+        type: integer
       produces:
       - application/json
       responses:
