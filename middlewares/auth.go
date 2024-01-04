@@ -3,9 +3,9 @@ package middlewares
 import (
 	"encoding/json"
 	"fmt"
+	"inspection-ra/helpers"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -33,9 +33,10 @@ func AuthService() gin.HandlerFunc {
 		req.Header.Add("Accept", "application/json")
 
 		// Send req using http Client
-		proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-		client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
+		// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
+		// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
 		// client := &http.Client{}
+		client := helpers.RequestClient(&http.Client{})
 		resp, err := client.Do(req)
 		if err != nil {
 			fmt.Println(err)
@@ -84,7 +85,8 @@ func AuthService_Save() gin.HandlerFunc {
 		// Send req using http Client
 		// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
 		// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-		client := &http.Client{}
+		// client := &http.Client{}
+		client := helpers.RequestClient(&http.Client{})
 		resp, err := client.Do(req)
 		if err != nil {
 			context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
