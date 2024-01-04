@@ -53,6 +53,27 @@ func (h *planHandler) GetAll(c *gin.Context) {
 		return
 	}
 
+	for i, val := range plan {
+		planDateParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.PlanDate)
+		planDate := planDateParse.Format("2006-01-02")
+
+		inspectDateParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.InspectDate)
+		inspectDate := inspectDateParse.Format("2006-01-02")
+		if inspectDate == "1900-01-01" {
+			inspectDate = ""
+		}
+
+		inspectTimeParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.InspectTime)
+		inspectTime := inspectTimeParse.Format("15:04:05")
+		if inspectTime == "00:00:00" {
+			inspectTime = ""
+		}
+
+		plan[i].PlanDate = planDate
+		plan[i].InspectDate = inspectDate
+		plan[i].InspectTime = inspectTime
+	}
+
 	c.JSON(http.StatusOK, domain.PlanResponse{
 		Data:        plan,
 		ElapsedTime: fmt.Sprint(time.Since(start))},

@@ -51,6 +51,38 @@ func (h *mobHandler) GetAll(c *gin.Context) {
 		return
 	}
 
+	for i, val := range mob {
+
+		damDateParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.DamDate)
+		damDate := damDateParse.Format("2006-01-02")
+		if damDate == "1900-01-01" {
+			damDate = ""
+		}
+
+		planDateParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.PlanDate)
+		planDate := planDateParse.Format("2006-01-02")
+		if planDate == "1900-01-01" {
+			planDate = ""
+		}
+
+		createdDateParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.CreatedDate)
+		createdDate := createdDateParse.Format("2006-01-02")
+		if createdDate == "1900-01-01" {
+			createdDate = ""
+		}
+
+		createdTimeParse, _ := time.Parse("2006-01-02T15:04:05Z07:00", val.CreatedTime)
+		createdTime := createdTimeParse.Format("15:04:05")
+		if createdTime == "00:00:00" {
+			createdTime = ""
+		}
+
+		mob[i].DamDate = damDate
+		mob[i].PlanDate = planDate
+		mob[i].CreatedDate = createdDate
+		mob[i].CreatedTime = createdTime
+	}
+
 	c.JSON(http.StatusOK, domain.MobResponse{
 		Data:        mob,
 		ElapsedTime: fmt.Sprint(time.Since(start))},
