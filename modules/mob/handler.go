@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"io/ioutil"
 	"net/http"
@@ -116,6 +117,7 @@ func (h *mobHandler) Insert(c *gin.Context) {
 
 	mob, err := h.mobService.Insert(mobRequest)
 	if err != nil {
+		helpers.LogInit(err.Error())
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
