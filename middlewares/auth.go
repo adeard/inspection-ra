@@ -69,8 +69,8 @@ func AuthService_Save() gin.HandlerFunc {
 			context.Abort()
 			return
 		}
-		url := "https://user-api-simp.azurewebsites.net/api/APP782231326/verify_save"
-		req, err := http.NewRequest("GET", url, nil)
+		urlAddr := "https://user-api-simp.azurewebsites.net/api/APP782231326/verify_save"
+		req, err := http.NewRequest("GET", urlAddr, nil)
 		if err != nil {
 			context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
 			context.Abort()
@@ -82,6 +82,8 @@ func AuthService_Save() gin.HandlerFunc {
 		req.Header.Add("Accept", "application/json")
 
 		// Send req using http Client
+		// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
+		// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
 		client := &http.Client{}
 		resp, err := client.Do(req)
 		if err != nil {

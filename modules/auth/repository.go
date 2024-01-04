@@ -8,7 +8,6 @@ import (
 	"inspection-ra/helpers"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 
 	"gorm.io/gorm"
@@ -55,7 +54,8 @@ func (r *repository) SignIn(auth domain.Auth) (domain.AuthData, error) {
 
 	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
 	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-	client := &http.Client{}
+	// client := &http.Client{}
+	client := helpers.RequestClient(&http.Client{})
 	resp, err := client.Do(req)
 	if err != nil {
 		helpers.LogInit(err.Error())
@@ -85,8 +85,9 @@ func (r *repository) GetLogged(token string) (domain.AuthLoggedData, error) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", token)
 
-	proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
+	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
+	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
+	client := helpers.RequestClient(&http.Client{})
 	resp, err := client.Do(req)
 	if err != nil {
 		panic(err)
