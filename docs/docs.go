@@ -322,6 +322,11 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "name": "version_app",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "name": "zinspec_vehicletype_id",
                         "in": "query"
@@ -1025,6 +1030,9 @@ const docTemplate = `{
                 "vehicle_type": {
                     "type": "string"
                 },
+                "version_app": {
+                    "type": "string"
+                },
                 "zinspec_vehicletype_id": {
                     "type": "integer"
                 },
@@ -1085,6 +1093,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "vehicle_type": {
+                    "type": "string"
+                },
+                "version_app": {
                     "type": "string"
                 },
                 "zinspec_vehicletype_id": {

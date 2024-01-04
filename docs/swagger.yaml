@@ -142,6 +142,8 @@ definitions:
         type: integer
       vehicle_type:
         type: string
+      version_app:
+        type: string
       zinspec_vehicletype_id:
         type: integer
       ztuagri_runacct_id:
@@ -182,6 +184,8 @@ definitions:
       status:
         type: integer
       vehicle_type:
+        type: string
+      version_app:
         type: string
       zinspec_vehicletype_id:
         type: integer
@@ -515,6 +519,9 @@ paths:
         type: integer
       - in: query
         name: vehicle_type
+        type: string
+      - in: query
+        name: version_app
         type: string
       - in: query
         name: zinspec_vehicletype_id

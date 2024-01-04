@@ -315,6 +315,11 @@
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "name": "version_app",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "name": "zinspec_vehicletype_id",
                         "in": "query"
@@ -1018,6 +1023,9 @@
                 "vehicle_type": {
                     "type": "string"
                 },
+                "version_app": {
+                    "type": "string"
+                },
                 "zinspec_vehicletype_id": {
                     "type": "integer"
                 },
@@ -1078,6 +1086,9 @@
                     "type": "integer"
                 },
                 "vehicle_type": {
+                    "type": "string"
+                },
+                "version_app": {
                     "type": "string"
                 },
                 "zinspec_vehicletype_id": {
