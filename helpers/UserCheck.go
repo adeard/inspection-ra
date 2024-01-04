@@ -13,9 +13,6 @@ func CheckUserAccess(token string) (string, error) {
 	req.Header.Add("Accept", "application/json")
 
 	// Send req using http Client
-	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-	// client := &http.Client{}
 	client := RequestClient(&http.Client{})
 	resp, err := client.Do(req)
 	if err != nil {

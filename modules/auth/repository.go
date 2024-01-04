@@ -52,9 +52,6 @@ func (r *repository) SignIn(auth domain.Auth) (domain.AuthData, error) {
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-	// client := &http.Client{}
 	client := helpers.RequestClient(&http.Client{})
 	resp, err := client.Do(req)
 	if err != nil {
@@ -85,8 +82,6 @@ func (r *repository) GetLogged(token string) (domain.AuthLoggedData, error) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", token)
 
-	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
 	client := helpers.RequestClient(&http.Client{})
 	resp, err := client.Do(req)
 	if err != nil {
