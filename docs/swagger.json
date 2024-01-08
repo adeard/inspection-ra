@@ -682,7 +682,7 @@
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "name": "anln1",
                         "in": "query"
                     },
@@ -1223,7 +1223,7 @@
             "type": "object",
             "properties": {
                 "anln1": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "class_group": {
                     "type": "string"

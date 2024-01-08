@@ -274,7 +274,7 @@ definitions:
   domain.RunAcctData:
     properties:
       anln1:
-        type: integer
+        type: string
       class_group:
         type: string
       class_ra:
@@ -745,7 +745,7 @@ paths:
         type: string
       - in: query
         name: anln1
-        type: integer
+        type: string
       - in: query
         name: class_group
         type: string

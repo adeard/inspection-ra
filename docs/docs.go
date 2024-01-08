@@ -689,7 +689,7 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "name": "anln1",
                         "in": "query"
                     },
@@ -1230,7 +1230,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "anln1": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "class_group": {
                     "type": "string"
