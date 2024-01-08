@@ -3,6 +3,7 @@ package attachment
 import (
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
 	"os"
@@ -58,6 +59,9 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	result, err := h.attachmentService.Store(input)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
 			Data:        err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -68,6 +72,9 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	err = c.SaveUploadedFile(file, dst)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
 			Data:        err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),

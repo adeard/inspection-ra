@@ -3,6 +3,7 @@ package objpart
 import (
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
 	"time"
@@ -35,6 +36,9 @@ func (h *objPartHandler) GetAll(c *gin.Context) {
 	start := time.Now()
 	objPart, err := h.objPartService.GetAll()
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.ObjPartResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),

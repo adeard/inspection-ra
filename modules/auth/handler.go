@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
 	"time"
@@ -58,6 +59,9 @@ func (h *authHandler) SignIn(c *gin.Context) {
 
 	auth, err := h.authService.SignIn(authrequest)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -67,6 +71,9 @@ func (h *authHandler) SignIn(c *gin.Context) {
 	}
 
 	if auth.Token == "" {
+
+		helpers.LogInit(auth.Message)
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     auth.Message,
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -95,6 +102,9 @@ func (h *authHandler) GetLogged(c *gin.Context) {
 
 	auth, err := h.authService.GetLogged(bearerToken)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),

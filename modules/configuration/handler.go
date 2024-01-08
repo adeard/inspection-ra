@@ -3,6 +3,7 @@ package configuration
 import (
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
 	"time"
@@ -40,6 +41,9 @@ func (h *configurationHandler) CheckConfig(c *gin.Context) {
 	configuration, err := h.configurationService.CheckConfig(configurationRequest)
 
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.ConfigurationResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),

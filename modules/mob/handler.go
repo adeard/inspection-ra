@@ -44,6 +44,9 @@ func (h *mobHandler) GetAll(c *gin.Context) {
 
 	mob, err := h.mobService.GetAll(mobRequest)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),

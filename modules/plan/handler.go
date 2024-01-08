@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"io/ioutil"
 	"net/http"
@@ -45,6 +46,9 @@ func (h *planHandler) GetAll(c *gin.Context) {
 
 	plan, err := h.planService.GetAll(planRequest)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -120,6 +124,9 @@ func (h *planHandler) Store(c *gin.Context) {
 
 	plan, err := h.planService.Store(planRequest)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -161,6 +168,9 @@ func (h *planHandler) Insert(c *gin.Context) {
 
 	plan, err := h.planService.Insert(planRequest)
 	if err != nil {
+
+		helpers.LogInit(err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
