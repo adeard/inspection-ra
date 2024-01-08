@@ -27,7 +27,7 @@ func (r *repository) FindAll(input domain.RunAcctRequest) ([]domain.RunAcctData,
 		q = q.Where("estate =  ? ", input.Estate)
 	}
 
-	if input.Anln1 != 0 {
+	if input.Anln1 != "" {
 		q = q.Where("anln1 =  ? ", input.Anln1)
 	}
 
