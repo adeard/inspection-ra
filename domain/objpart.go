@@ -13,7 +13,15 @@ type ObjPartRequest struct {
 }
 
 type ObjPartData struct {
-	Id int32 `json:"id" gorm:"column:id"`
+	Id              int32  `json:"id" gorm:"column:id"`
+	VehicleTypeCode string `json:"vehicle_type_code" gorm:"column:vehicle_type_code"`
+	ObjPartRequest
+	VehicleTypeData VehicleTypeData `json:"vehicle_type_data" gorm:"foreignKey:Id;references:ZinspecVehicleTypeId;"`
+}
+
+type ObjPartDataResponse struct {
+	Id              int32  `json:"id" gorm:"column:id"`
+	VehicleTypeCode string `json:"vehicle_type_code" gorm:"column:vehicle_type_code"`
 	ObjPartRequest
 }
 

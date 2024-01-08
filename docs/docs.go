@@ -454,7 +454,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/domain.ObjPartData"
+                                            "$ref": "#/definitions/domain.ObjPartDataResponse"
                                         }
                                     }
                                 }
@@ -1118,7 +1118,7 @@ const docTemplate = `{
                 }
             }
         },
-        "domain.ObjPartData": {
+        "domain.ObjPartDataResponse": {
             "type": "object",
             "properties": {
                 "id": {
@@ -1128,6 +1128,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "vehicle_type": {
+                    "type": "string"
+                },
+                "vehicle_type_code": {
                     "type": "string"
                 },
                 "zinspec_vehicletype_id": {

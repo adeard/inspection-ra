@@ -200,13 +200,15 @@ definitions:
       message:
         type: string
     type: object
-  domain.ObjPartData:
+  domain.ObjPartDataResponse:
     properties:
       id:
         type: integer
       obj_part:
         type: string
       vehicle_type:
+        type: string
+      vehicle_type_code:
         type: string
       zinspec_vehicletype_id:
         type: integer
@@ -603,7 +605,7 @@ paths:
             - $ref: '#/definitions/domain.ObjPartResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/domain.ObjPartData'
+                  $ref: '#/definitions/domain.ObjPartDataResponse'
               type: object
       summary: Get Object Part
       tags:

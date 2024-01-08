@@ -20,7 +20,7 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) FindAll() ([]domain.ObjPartData, error) {
 	var objPart []domain.ObjPartData
-	err := r.db.Find(&objPart).Error
+	err := r.db.Preload("VehicleTypeData").Find(&objPart).Error
 
 	return objPart, err
 }

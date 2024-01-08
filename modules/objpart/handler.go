@@ -29,11 +29,12 @@ func NewObjPartHandler(v1 *gin.RouterGroup, objPartService Service) {
 // @Accept  json
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
 // @Produce  json
-// @Success 200 {object} domain.ObjPartResponse{data=domain.ObjPartData}
+// @Success 200 {object} domain.ObjPartResponse{data=domain.ObjPartDataResponse}
 // @Router /api/v1/objpart [get]
 // @Tags Object Part
 func (h *objPartHandler) GetAll(c *gin.Context) {
 	start := time.Now()
+	objPartDataResp := []domain.ObjPartDataResponse{}
 	objPart, err := h.objPartService.GetAll()
 	if err != nil {
 
@@ -47,8 +48,16 @@ func (h *objPartHandler) GetAll(c *gin.Context) {
 		return
 	}
 
+	for _, v := range objPart {
+		objPartDataResp = append(objPartDataResp, domain.ObjPartDataResponse{
+			Id:              v.Id,
+			ObjPartRequest:  v.ObjPartRequest,
+			VehicleTypeCode: v.VehicleTypeData.Code,
+		})
+	}
+
 	c.JSON(http.StatusOK, domain.ObjPartResponse{
-		Data:        objPart,
+		Data:        objPartDataResp,
 		ElapsedTime: fmt.Sprint(time.Since(start))},
 	)
 }
