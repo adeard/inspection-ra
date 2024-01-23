@@ -6,7 +6,6 @@ import (
 	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gabriel-vasile/mimetype"
@@ -43,7 +42,7 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	c.ShouldBind(&input)
 
-	path, _ := os.Getwd()
+	// path, _ := os.Getwd()
 
 	file, _ := c.FormFile("file")
 
@@ -53,7 +52,8 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	filename := input.ImageCategory + "_" + time.Now().Format("20060102150405") + ext.Extension()
 
-	dst := path + `\images\` + filename
+	// dst := path + `\images\` + filename
+	dst := `D:\File_attachment\Inspection_RA\images` + filename
 
 	input.Filename = filename
 
