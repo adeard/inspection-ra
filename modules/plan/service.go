@@ -35,8 +35,9 @@ func (s *service) Store(input domain.PlanRequest) (domain.PlanRequest, error) {
 func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 
 	existPlanIds := []int32{}
+	insertedData := []domain.PlanRequest{}
 
-	for _, plan := range input {
+	for index, plan := range input {
 		filterCheck := domain.PlanRequest{
 			CompanyCode:    plan.CompanyCode,
 			Ba:             plan.Ba,
@@ -46,15 +47,20 @@ func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 
 		check, err := s.repository.GetDetail(filterCheck)
 		if err == nil {
+			if input[index].InspectDate == "" {
+				continue
+			}
 			existPlanIds = append(existPlanIds, check.Id)
 		}
+
+		insertedData = append(insertedData, plan)
 	}
 
 	if len(existPlanIds) > 0 {
 		s.repository.DeleteBatch(existPlanIds)
 	}
 
-	result, err := s.repository.Insert(input)
+	result, err := s.repository.Insert(insertedData)
 
 	return result, err
 }
