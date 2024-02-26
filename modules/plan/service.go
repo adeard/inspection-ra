@@ -33,7 +33,8 @@ func (s *service) Store(input domain.PlanRequest) (domain.PlanRequest, error) {
 }
 
 func (s *service) Insert(input []domain.PlanRequest) (string, error) {
-
+	var err error
+	var result string
 	existPlanIds := []int32{}
 	insertedData := []domain.PlanRequest{}
 
@@ -54,13 +55,29 @@ func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 		}
 
 		insertedData = append(insertedData, plan)
+
+		if len(insertedData) > 100 {
+			if len(existPlanIds) > 0 {
+				s.repository.DeleteBatch(existPlanIds)
+			}
+
+			result, err = s.repository.Insert(insertedData)
+			if err != nil {
+				return result, err
+			} else {
+				existPlanIds = []int32{}
+				insertedData = []domain.PlanRequest{}
+			}
+		}
 	}
 
 	if len(existPlanIds) > 0 {
 		s.repository.DeleteBatch(existPlanIds)
 	}
 
-	result, err := s.repository.Insert(insertedData)
+	if len(insertedData) > 0 {
+		result, err = s.repository.Insert(insertedData)
+	}
 
 	return result, err
 }
