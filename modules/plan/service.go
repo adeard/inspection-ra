@@ -56,7 +56,7 @@ func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 
 		insertedData = append(insertedData, plan)
 
-		if len(insertedData) > 1000 {
+		if len(insertedData) > 500 {
 			if len(existPlanIds) > 0 {
 				s.repository.DeleteBatch(existPlanIds)
 			}

@@ -156,12 +156,18 @@ func (h *planHandler) Insert(c *gin.Context) {
 
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
+
+		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
+
 		c.AbortWithError(400, err)
 		return
 	}
 
 	err = json.Unmarshal(body, &planRequest)
 	if err != nil {
+
+		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
+
 		c.AbortWithError(400, err)
 		return
 	}
@@ -170,6 +176,8 @@ func (h *planHandler) Insert(c *gin.Context) {
 	if err != nil {
 
 		helpers.LogInit(err.Error())
+
+		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
 
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
