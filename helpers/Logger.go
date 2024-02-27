@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"inspection-ra/config"
+	"inspection-ra/domain"
+	"inspection-ra/modules/mailbox"
 	"io"
 	"log"
 	"net/http"
@@ -25,6 +28,27 @@ func LogInit(message string) {
 
 	log.SetOutput(f)
 	log.Println(message)
+}
+
+func SendLogLocal(context *gin.Context, request any, statusCode int, response string) {
+	var requestString string
+
+	result, err := json.Marshal(request)
+	if err != nil {
+		requestString = "request not struct : " + err.Error()
+	} else {
+		requestString = string(result)
+	}
+
+	logData := domain.MailboxRequest{
+		StatusCode: statusCode,
+		Source:     context.Request.Host + context.Request.URL.String(),
+		Request:    requestString,
+		Response:   response,
+	}
+
+	db := config.Connect()
+	mailbox.Service.Store(mailbox.MailboxRegistry(db), logData)
 }
 
 func SendLog(context *gin.Context, request any, statusCode int, response string) (string, error) {

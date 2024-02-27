@@ -78,6 +78,8 @@ func (h *planHandler) GetAll(c *gin.Context) {
 		plan[i].InspectTime = inspectTime
 	}
 
+	go helpers.SendLogLocal(c, planRequest, http.StatusOK, "")
+
 	c.JSON(http.StatusOK, domain.PlanResponse{
 		Data:        plan,
 		ElapsedTime: fmt.Sprint(time.Since(start))},
@@ -113,6 +115,8 @@ func (h *planHandler) Store(c *gin.Context) {
 			errorMessages = append(errorMessages, errorArray)
 		}
 
+		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, "Error Validation")
+
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Data:        errorMessages,
 			Message:     "Error Validation",
@@ -127,6 +131,8 @@ func (h *planHandler) Store(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -134,6 +140,8 @@ func (h *planHandler) Store(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, planRequest, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.PlanResponse{
 		Data:        plan,
@@ -158,6 +166,7 @@ func (h *planHandler) Insert(c *gin.Context) {
 	if err != nil {
 
 		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
+		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, err.Error())
 
 		c.AbortWithError(400, err)
 		return
@@ -167,6 +176,7 @@ func (h *planHandler) Insert(c *gin.Context) {
 	if err != nil {
 
 		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
+		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, err.Error())
 
 		c.AbortWithError(400, err)
 		return
@@ -178,6 +188,7 @@ func (h *planHandler) Insert(c *gin.Context) {
 		helpers.LogInit(err.Error())
 
 		go helpers.SendLog(c, planRequest, http.StatusBadRequest, err.Error())
+		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, err.Error())
 
 		c.JSON(http.StatusBadRequest, domain.PlanResponse{
 			Message:     err.Error(),
@@ -186,6 +197,8 @@ func (h *planHandler) Insert(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, planRequest, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.PlanResponse{
 		Data:        plan,

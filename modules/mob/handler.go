@@ -47,6 +47,8 @@ func (h *mobHandler) GetAll(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, mobRequest, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -87,6 +89,8 @@ func (h *mobHandler) GetAll(c *gin.Context) {
 		mob[i].CreatedTime = createdTime
 	}
 
+	go helpers.SendLogLocal(c, mobRequest, http.StatusOK, "")
+
 	c.JSON(http.StatusOK, domain.MobResponse{
 		Data:        mob,
 		ElapsedTime: fmt.Sprint(time.Since(start))},
@@ -121,6 +125,9 @@ func (h *mobHandler) Insert(c *gin.Context) {
 	mob, err := h.mobService.Insert(mobRequest)
 	if err != nil {
 		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, mobRequest, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -128,6 +135,8 @@ func (h *mobHandler) Insert(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, mobRequest, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.MobResponse{
 		Data:        mob,
