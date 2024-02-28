@@ -38,7 +38,16 @@ func (r *repository) FindAll(input domain.MobRequest) ([]domain.MobData, error) 
 }
 
 func (r *repository) Insert(mobData []domain.MobRequest) (string, error) {
-	err := r.db.Create(&mobData).Error
+	tx := r.db.Begin()
+
+	err := tx.Create(&mobData).Error
+	if err != nil {
+		tx.Rollback()
+
+		return "error", err
+	}
+
+	tx.Commit()
 
 	return "success", err
 }

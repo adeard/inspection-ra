@@ -56,7 +56,16 @@ func (r *repository) Store(planData domain.PlanRequest) (domain.PlanRequest, err
 }
 
 func (r *repository) Insert(planData []domain.PlanRequest) (string, error) {
-	err := r.db.Create(&planData).Error
+	tx := r.db.Begin()
+
+	err := tx.Create(&planData).Error
+	if err != nil {
+		tx.Rollback()
+
+		return "error", err
+	}
+
+	tx.Commit()
 
 	return "success", err
 }
