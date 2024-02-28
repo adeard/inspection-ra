@@ -23,8 +23,45 @@ func (s *service) GetAll(input domain.MobRequest) ([]domain.MobData, error) {
 }
 
 func (s *service) Insert(input []domain.MobRequest) (string, error) {
+	var err error
+	var result string
+	existMobIds := []int32{}
+	insertedData := []domain.MobRequest{}
 
-	mobData, err := s.repository.Insert(input)
+	for _, mobData := range input {
+		filterCheck := domain.MobRequest{
+			NoInspec: mobData.NoInspec,
+		}
 
-	return mobData, err
+		check, err := s.repository.GetDetail(filterCheck)
+		if err == nil {
+			existMobIds = append(existMobIds, check.Id)
+		}
+
+		insertedData = append(insertedData, mobData)
+
+		if len(insertedData) > 100 {
+			if len(existMobIds) > 0 {
+				s.repository.DeleteBatch(existMobIds)
+			}
+
+			result, err = s.repository.Insert(insertedData)
+			if err != nil {
+				return result, err
+			} else {
+				existMobIds = []int32{}
+				insertedData = []domain.MobRequest{}
+			}
+		}
+	}
+
+	if len(existMobIds) > 0 {
+		s.repository.DeleteBatch(existMobIds)
+	}
+
+	if len(insertedData) > 0 {
+		result, err = s.repository.Insert(insertedData)
+	}
+
+	return result, err
 }
