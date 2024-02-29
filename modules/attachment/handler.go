@@ -52,12 +52,12 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	filename := input.ImageCategory + "_" + time.Now().Format("20060102150405") + ext.Extension()
 
-	// dst := path + `\images\` + filename
-	dst := `D:\File_attachment\Inspection_RA\images\` + filename
+	// dst := path + `\images\`
+	dst := `D:\File_attachment\Inspection_RA\images\`
 
 	input.Filename = filename
 
-	result, err := h.attachmentService.Store(input)
+	result, err := h.attachmentService.Store(input, dst)
 	if err != nil {
 
 		helpers.LogInit(err.Error())
@@ -70,7 +70,7 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 		return
 	}
 
-	err = c.SaveUploadedFile(file, dst)
+	err = c.SaveUploadedFile(file, dst+filename)
 	if err != nil {
 
 		helpers.LogInit(err.Error())
