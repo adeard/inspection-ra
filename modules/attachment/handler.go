@@ -46,9 +46,33 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	file, _ := c.FormFile("file")
 
-	openedFile, _ := file.Open()
+	openedFile, err := file.Open()
+	if err != nil {
+		helpers.LogInit(err.Error())
 
-	ext, _ := mimetype.DetectReader(openedFile)
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
+		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
+			Data:        err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	ext, err := mimetype.DetectReader(openedFile)
+	if err != nil {
+		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
+		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
+			Data:        err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
 
 	filename := input.ImageCategory + "_" + time.Now().Format("20060102150405") + ext.Extension()
 
@@ -61,6 +85,8 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 	if err != nil {
 
 		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
 
 		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
 			Data:        err.Error(),
@@ -75,6 +101,8 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
 			Data:        err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -82,6 +110,8 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, input, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.AttachmentResponse{
 		Data:        result,

@@ -48,6 +48,8 @@ func (h *authHandler) SignIn(c *gin.Context) {
 			errorMessages = append(errorMessages, errorMessage)
 		}
 
+		go helpers.SendLogLocal(c, authrequest, http.StatusBadRequest, "Error Validation")
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Data:        errorMessages,
 			Message:     "Error Validation",
@@ -62,6 +64,8 @@ func (h *authHandler) SignIn(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, authrequest, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -74,6 +78,8 @@ func (h *authHandler) SignIn(c *gin.Context) {
 
 		helpers.LogInit(auth.Message)
 
+		go helpers.SendLogLocal(c, authrequest, http.StatusBadRequest, auth.Message)
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     auth.Message,
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -81,6 +87,8 @@ func (h *authHandler) SignIn(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, authrequest, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.AuthResponse{
 		Data:        auth,
@@ -105,6 +113,8 @@ func (h *authHandler) GetLogged(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, auth, http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -112,6 +122,8 @@ func (h *authHandler) GetLogged(c *gin.Context) {
 
 		return
 	}
+
+	go helpers.SendLogLocal(c, auth, http.StatusOK, "")
 
 	result := domain.AuthResponse{
 		Data:        auth,

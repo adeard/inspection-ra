@@ -40,6 +40,8 @@ func (h *objPartHandler) GetAll(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
+		go helpers.SendLogLocal(c, "", http.StatusBadRequest, err.Error())
+
 		c.JSON(http.StatusBadRequest, domain.ObjPartResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -55,6 +57,8 @@ func (h *objPartHandler) GetAll(c *gin.Context) {
 			VehicleTypeCode: v.VehicleTypeData.Code,
 		})
 	}
+
+	go helpers.SendLogLocal(c, "", http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.ObjPartResponse{
 		Data:        objPartDataResp,
