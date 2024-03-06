@@ -6,6 +6,7 @@ import (
 	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gabriel-vasile/mimetype"
@@ -115,6 +116,82 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 
 	c.JSON(http.StatusOK, domain.AttachmentResponse{
 		Data:        result,
+		ElapsedTime: fmt.Sprint(time.Since(start)),
+	})
+}
+
+// @Summary Upload File
+// @Description Upload File
+// @Accept  mpfd
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param file formData file true " AttachmentRequest Schema "
+// @Param no_inspec formData string true " AttachmentRequest Schema "
+// @Param image_category formData string true " AttachmentRequest Schema "
+// @Produce  json
+// @Success 200 {object} domain.AttachmentResponse
+// @Router /api/v1/attachment/db [post]
+// @Tags Attachment
+func (h *attachmentHandler) StoreFile(c *gin.Context) {
+	start := time.Now()
+	var input domain.AttachmentRequest
+
+	c.ShouldBind(&input)
+
+	path, _ := os.Getwd()
+
+	file, _ := c.FormFile("file")
+
+	openedFile, err := file.Open()
+	if err != nil {
+		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
+		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
+			Data:        err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	ext, err := mimetype.DetectReader(openedFile)
+	if err != nil {
+		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
+		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
+			Data:        err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	filename := time.Now().Format("20060102150405") + ext.Extension()
+
+	dst := path + `\db\`
+
+	err = c.SaveUploadedFile(file, dst+filename)
+	if err != nil {
+
+		helpers.LogInit(err.Error())
+
+		go helpers.SendLogLocal(c, input, http.StatusBadRequest, err.Error())
+
+		c.JSON(http.StatusBadRequest, domain.AttachmentResponse{
+			Data:        err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	go helpers.SendLogLocal(c, input, http.StatusOK, "")
+
+	c.JSON(http.StatusOK, domain.AttachmentResponse{
+		Data:        "success upload",
 		ElapsedTime: fmt.Sprint(time.Since(start)),
 	})
 }

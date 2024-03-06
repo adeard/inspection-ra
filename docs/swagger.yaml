@@ -104,6 +104,29 @@ definitions:
       message:
         type: string
     type: object
+  domain.MailboxRequest:
+    properties:
+      created_at:
+        type: string
+      request:
+        type: string
+      response:
+        type: string
+      source:
+        type: string
+      status_code:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  domain.MailboxResponse:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
   domain.MobData:
     properties:
       ba:
@@ -378,6 +401,43 @@ paths:
       summary: Upload File
       tags:
       - Attachment
+  /api/v1/attachment/db:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload File
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' AttachmentRequest Schema '
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: ' AttachmentRequest Schema '
+        in: formData
+        name: no_inspec
+        required: true
+        type: string
+      - description: ' AttachmentRequest Schema '
+        in: formData
+        name: image_category
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.AttachmentResponse'
+      summary: Upload File
+      tags:
+      - Attachment
   /api/v1/auth/logged:
     get:
       consumes:
@@ -459,6 +519,33 @@ paths:
       summary: Check Current Config
       tags:
       - Inspect Configuration
+  /api/v1/mailbox:
+    post:
+      consumes:
+      - application/json
+      description: Create Log
+      parameters:
+      - description: ' MailboxRequest Schema '
+        in: body
+        name: MailboxRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.MailboxRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MailboxResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.MailboxRequest'
+              type: object
+      summary: Create Log
+      tags:
+      - Mailbox
   /api/v1/mob:
     get:
       consumes:

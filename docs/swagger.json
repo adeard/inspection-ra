@@ -71,6 +71,60 @@
                 }
             }
         },
+        "/api/v1/attachment/db": {
+            "post": {
+                "description": "Upload File",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Attachment"
+                ],
+                "summary": "Upload File",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "no_inspec",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " AttachmentRequest Schema ",
+                        "name": "image_category",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.AttachmentResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/auth/logged": {
             "get": {
                 "description": "Get Logged User",
@@ -198,6 +252,52 @@
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/domain.ConfigurationData"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/mailbox": {
+            "post": {
+                "description": "Create Log",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mailbox"
+                ],
+                "summary": "Create Log",
+                "parameters": [
+                    {
+                        "description": " MailboxRequest Schema ",
+                        "name": "MailboxRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.MailboxRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.MailboxResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.MailboxRequest"
                                         }
                                     }
                                 }
@@ -955,6 +1055,41 @@
             }
         },
         "domain.ConfigurationResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "elapsed_time": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.MailboxRequest": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "request": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.MailboxResponse": {
             "type": "object",
             "properties": {
                 "data": {},
