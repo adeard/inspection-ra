@@ -24,6 +24,7 @@ func NewAttachmentHandler(v1 *gin.RouterGroup, attachmentService Service) {
 	attachment := v1.Group("attachment")
 
 	attachment.POST("", middlewares.AuthService(), handler.Store)
+	attachment.POST("db", middlewares.AuthService(), handler.StoreFile)
 }
 
 // @Summary Upload File
@@ -169,7 +170,7 @@ func (h *attachmentHandler) StoreFile(c *gin.Context) {
 		return
 	}
 
-	filename := time.Now().Format("20060102150405") + ext.Extension()
+	filename := file.Filename + "_" + input.NoInspec + ext.Extension()
 
 	dst := path + `\db\`
 

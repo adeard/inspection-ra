@@ -54,7 +54,6 @@ func main() {
 	router.GET("InspectionRA/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	v1 := router.Group("InspectionRA/api/v1")
-	v1.Static("/attachment", "./images")
 
 	mob.NewMobHandler(v1, mob.MobRegistry(db))
 	auth.NewAuthHandler(v1, auth.AuthRegistry(db))
