@@ -28,8 +28,6 @@ func (s *service) AuthTest() (domain.Auth, error) {
 
 func (s *service) SignIn(authinput domain.AuthRequest) (domain.AuthData, error) {
 
-	authinput.Ldap = true
-
 	auth, err := s.repository.SignIn(domain.Auth(authinput))
 	if auth.Token != "" {
 		message, _ := helpers.CheckUserAccess(auth.Token)

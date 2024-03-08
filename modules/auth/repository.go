@@ -102,8 +102,15 @@ func (r *repository) GetLogged(token string) (domain.AuthLoggedData, error) {
 		Code:     parsed.Code,
 		Username: parsed.Username,
 		Email:    parsed.Email,
-		Fullname: parsed.Employees[0].Fullname,
 		Company:  parsed.Company,
+	}
+
+	if parsed.Fullname != "" {
+		result.Fullname = parsed.Fullname
+	}
+
+	if len(parsed.Employees) > 0 {
+		result.Fullname = parsed.Employees[0].Fullname
 	}
 
 	return result, nil
