@@ -163,6 +163,8 @@ definitions:
         type: string
       status:
         type: integer
+      sync_date:
+        type: string
       vehicle_type:
         type: string
       version_app:
@@ -206,6 +208,8 @@ definitions:
         type: string
       status:
         type: integer
+      sync_date:
+        type: string
       vehicle_type:
         type: string
       version_app:
@@ -262,6 +266,8 @@ definitions:
         type: string
       status:
         type: string
+      sync_date:
+        type: string
       week:
         type: integer
       ztuagri_runacct_id:
@@ -282,6 +288,8 @@ definitions:
       running_account:
         type: string
       status:
+        type: string
+      sync_date:
         type: string
       week:
         type: integer
@@ -607,6 +615,9 @@ paths:
         name: status
         type: integer
       - in: query
+        name: sync_date
+        type: string
+      - in: query
         name: vehicle_type
         type: string
       - in: query
@@ -729,6 +740,9 @@ paths:
         type: string
       - in: query
         name: status
+        type: string
+      - in: query
+        name: sync_date
         type: string
       - in: query
         name: week

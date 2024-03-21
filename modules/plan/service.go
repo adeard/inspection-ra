@@ -2,6 +2,7 @@ package plan
 
 import (
 	"inspection-ra/domain"
+	"inspection-ra/helpers"
 )
 
 type Service interface {
@@ -26,7 +27,7 @@ func (s *service) GetAll(input domain.PlanRequest) ([]domain.PlanData, error) {
 }
 
 func (s *service) Store(input domain.PlanRequest) (domain.PlanRequest, error) {
-
+	input.SyncDate = helpers.GetCurrentDateTime()
 	planData, err := s.repository.Store(input)
 
 	return planData, err
@@ -54,6 +55,7 @@ func (s *service) Insert(input []domain.PlanRequest) (string, error) {
 			existPlanIds = append(existPlanIds, check.Id)
 		}
 
+		plan.SyncDate = helpers.GetCurrentDateTime()
 		insertedData = append(insertedData, plan)
 
 		if len(insertedData) > 200 {

@@ -16,6 +16,7 @@ type PlanRequest struct {
 	InspectTime      string `json:"inspect_time" form:"inspect_time" gorm:"column:inspect_time;"`
 	ZtuAgriRunAcctId int32  `json:"ztuagri_runacct_id" form:"ztuagri_runacct_id" gorm:"column:ztuagri_runacct_id;"`
 	Week             int32  `json:"week" form:"week" gorm:"column:week;"`
+	SyncDate         string `json:"sync_date" form:"sync_date" gorm:"column:sync_date;"`
 }
 
 type PlanData struct {

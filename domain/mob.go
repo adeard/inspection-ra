@@ -27,6 +27,7 @@ type MobRequest struct {
 	IsGps                int32  `json:"is_gps" gorm:"column:is_gps"`
 	DamDetail            string `json:"dam_detail" gorm:"column:dam_detail"`
 	VersionApp           string `json:"version_app" gorm:"column:version_app"`
+	SyncDate             string `json:"sync_date" form:"sync_date" gorm:"column:sync_date;"`
 }
 
 type MobData struct {

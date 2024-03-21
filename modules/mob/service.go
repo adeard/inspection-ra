@@ -1,6 +1,9 @@
 package mob
 
-import "inspection-ra/domain"
+import (
+	"inspection-ra/domain"
+	"inspection-ra/helpers"
+)
 
 type Service interface {
 	GetAll(input domain.MobRequest) ([]domain.MobData, error)
@@ -38,6 +41,7 @@ func (s *service) Insert(input []domain.MobRequest) (string, error) {
 			existMobIds = append(existMobIds, check.Id)
 		}
 
+		mobData.SyncDate = helpers.GetCurrentDateTime()
 		insertedData = append(insertedData, mobData)
 
 		if len(insertedData) > 100 {

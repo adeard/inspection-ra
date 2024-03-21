@@ -418,6 +418,11 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "name": "sync_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "name": "vehicle_type",
                         "in": "query"
                     },
@@ -619,6 +624,11 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sync_date",
                         "in": "query"
                     },
                     {
@@ -1162,6 +1172,9 @@ const docTemplate = `{
                 "status": {
                     "type": "integer"
                 },
+                "sync_date": {
+                    "type": "string"
+                },
                 "vehicle_type": {
                     "type": "string"
                 },
@@ -1226,6 +1239,9 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
+                },
+                "sync_date": {
+                    "type": "string"
                 },
                 "vehicle_type": {
                     "type": "string"
@@ -1312,6 +1328,9 @@ const docTemplate = `{
                 "status": {
                     "type": "string"
                 },
+                "sync_date": {
+                    "type": "string"
+                },
                 "week": {
                     "type": "integer"
                 },
@@ -1342,6 +1361,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "status": {
+                    "type": "string"
+                },
+                "sync_date": {
                     "type": "string"
                 },
                 "week": {
