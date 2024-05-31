@@ -44,7 +44,7 @@ func (s *service) Insert(input []domain.MobRequest) (string, error) {
 		mobData.SyncDate = helpers.GetCurrentDateTime()
 		insertedData = append(insertedData, mobData)
 
-		if len(insertedData) > 100 {
+		if len(insertedData) > 70 {
 			if len(existMobIds) > 0 {
 				s.repository.DeleteBatch(existMobIds)
 			}

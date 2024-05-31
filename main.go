@@ -10,6 +10,7 @@ import (
 	"inspection-ra/modules/objpart"
 	"inspection-ra/modules/plan"
 	"inspection-ra/modules/runacct"
+	auth_v2 "inspection-ra/modules/v2/auth"
 	"inspection-ra/modules/vehicletype"
 	"log"
 	"net/http"
@@ -53,8 +54,9 @@ func main() {
 
 	router.GET("InspectionRA/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	v1 := router.Group("InspectionRA/api/v1")
+	api := router.Group("InspectionRA/api")
 
+	v1 := api.Group("v1")
 	mob.NewMobHandler(v1, mob.MobRegistry(db))
 	auth.NewAuthHandler(v1, auth.AuthRegistry(db))
 	plan.NewPlanHandler(v1, plan.PlanRegistry(db))
@@ -63,6 +65,9 @@ func main() {
 	attachment.NewAttachmentHandler(v1, attachment.AttachmentRegistry(db))
 	vehicletype.NewVehicleTypeHandler(v1, vehicletype.VehicleTypeRegistry(db))
 	configuration.NewConfigurationHandler(v1, configuration.ConfigurationRegistry(db))
+
+	v2 := api.Group("v2")
+	auth_v2.NewAuthHandler(v2, auth_v2.AuthRegistry(db))
 
 	// router.Run(":86")
 

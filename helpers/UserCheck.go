@@ -2,8 +2,11 @@ package helpers
 
 import (
 	"encoding/json"
+	"fmt"
+	"inspection-ra/domain"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 func CheckUserAccess(token string) (string, error) {
@@ -29,4 +32,29 @@ func CheckUserAccess(token string) (string, error) {
 	json.Unmarshal(data, &message)
 
 	return message.Message, err
+}
+
+func GetDetailUser(token string) (domain.NewDetailUserResponse, error) {
+	urladdr := os.Getenv("USER_SERVICE_URL") + "/api/user/detail_by_name_application?name_application=InspectionRA"
+	req, _ := http.NewRequest("GET", urladdr, nil)
+	req.Header.Add("authenticationToken", token)
+	req.Header.Add("Accept", "application/json")
+
+	// Send req using http Client
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return domain.NewDetailUserResponse{}, err
+	}
+
+	defer resp.Body.Close()
+
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	fmt.Println(data)
+
+	result := domain.NewDetailUserResponse{}
+	json.Unmarshal(data, &result)
+
+	return result, err
 }

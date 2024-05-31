@@ -72,3 +72,15 @@ type AuthResponse struct {
 	Message     string `json:"message"`
 	ElapsedTime string `json:"elapsed_time"`
 }
+
+type NewUserResponse struct {
+	Result  bool   `json:"result"`
+	Message string `json:"message"`
+	Datas   string `json:"datas"`
+}
+
+type NewDetailUserResponse struct {
+	Result  bool   `json:"result"`
+	Message string `json:"message"`
+	Objek   any    `json:"objek"`
+}
