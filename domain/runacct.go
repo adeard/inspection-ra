@@ -18,6 +18,8 @@ type RunAcctRequest struct {
 	LicensePlate   string `json:"license_plate" gorm:"column:license_plate" form:"license_plate"`
 	RunningText    string `json:"running_text" gorm:"column:running_text" form:"running_text"`
 	Equnr          string `json:"equnr" gorm:"column:equnr" form:"equnr"`
+	CreateDate     string `json:"create_date" gorm:"column:create_date" form:"create_date"`
+	CreateTime     string `json:"create_time" gorm:"column:create_time" form:"create_time"`
 }
 
 type RunAcctData struct {
