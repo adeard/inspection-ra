@@ -16,6 +16,8 @@ func NewService(repository Repository) *service {
 
 func (s *service) GetAll(input domain.RunAcctRequest) ([]domain.RunAcctData, error) {
 
+	input.StatusFlag = "A"
+
 	runAcct, err := s.repository.FindAll(input)
 
 	return runAcct, err

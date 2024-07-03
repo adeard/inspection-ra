@@ -31,6 +31,10 @@ func (r *repository) FindAll(input domain.RunAcctRequest) ([]domain.RunAcctData,
 		q = q.Where("anln1 =  ? ", input.Anln1)
 	}
 
+	if input.StatusFlag != "" {
+		q = q.Where("status_flag =  ? ", input.StatusFlag)
+	}
+
 	err := q.Find(&runAcct).Error
 
 	return runAcct, err
