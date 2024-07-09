@@ -820,6 +820,16 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "name": "create_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "create_time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "name": "equnr",
                         "in": "query"
                     },
@@ -912,6 +922,97 @@ const docTemplate = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/domain.VehicleTypeData"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/auth/logged": {
+            "get": {
+                "description": "Get Logged User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth V2"
+                ],
+                "summary": "Get Logged User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.AuthResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.AuthLoggedData"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/auth/sign_in": {
+            "post": {
+                "description": "Sign In",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth V2"
+                ],
+                "summary": "Sign In",
+                "parameters": [
+                    {
+                        "description": " AuthRequest Schema ",
+                        "name": "AuthRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.AuthRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.AuthResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.AuthData"
                                         }
                                     }
                                 }
@@ -1399,6 +1500,12 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "company_code": {
+                    "type": "string"
+                },
+                "create_date": {
+                    "type": "string"
+                },
+                "create_time": {
                     "type": "string"
                 },
                 "equnr": {

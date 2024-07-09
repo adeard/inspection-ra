@@ -314,6 +314,10 @@ definitions:
         type: string
       company_code:
         type: string
+      create_date:
+        type: string
+      create_time:
+        type: string
       equnr:
         type: string
       estate:
@@ -859,6 +863,12 @@ paths:
         name: company_code
         type: string
       - in: query
+        name: create_date
+        type: string
+      - in: query
+        name: create_time
+        type: string
+      - in: query
         name: equnr
         type: string
       - in: query
@@ -921,4 +931,58 @@ paths:
       summary: Get Vehicle Type
       tags:
       - Vehicle Type
+  /api/v2/auth/logged:
+    get:
+      consumes:
+      - application/json
+      description: Get Logged User
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.AuthResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.AuthLoggedData'
+              type: object
+      summary: Get Logged User
+      tags:
+      - Auth V2
+  /api/v2/auth/sign_in:
+    post:
+      consumes:
+      - application/json
+      description: Sign In
+      parameters:
+      - description: ' AuthRequest Schema '
+        in: body
+        name: AuthRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.AuthResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.AuthData'
+              type: object
+      summary: Sign In
+      tags:
+      - Auth V2
 swagger: "2.0"
