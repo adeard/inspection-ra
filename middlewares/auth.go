@@ -13,54 +13,10 @@ func AuthService() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		err := helpers.ValidateJWT(context)
 		if err != nil {
-			context.JSON(http.StatusUnauthorized, gin.H{"message": "Authentication required"})
+			context.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})
 			context.Abort()
 			return
 		}
-
-		// token, err := getTokenFromRequestSample(context)
-		// if err != nil {
-		// 	context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
-		// 	context.Abort()
-		// 	return
-		// }
-
-		// urladdr := os.Getenv("USER_SERVICE_URL") + "/api/verify"
-		// req, err := http.NewRequest("GET", urladdr, nil)
-		// if err != nil {
-		// 	context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
-		// 	context.Abort()
-		// 	return
-		// }
-		// bearer := "Bearer " + token
-		// // add authorization header to the req
-		// req.Header.Add("Authorization", bearer)
-		// req.Header.Add("Accept", "application/json")
-
-		// // Send req using http Client
-		// client := helpers.RequestClient(&http.Client{})
-		// resp, err := client.Do(req)
-		// if err != nil {
-		// 	fmt.Println(err)
-		// 	context.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication required"})
-		// 	context.Abort()
-		// 	return
-		// } else {
-		// 	defer resp.Body.Close()
-		// 	if resp.StatusCode != http.StatusAccepted {
-		// 		data, _ := ioutil.ReadAll(resp.Body)
-		// 		var message struct {
-		// 			Message string
-		// 		}
-
-		// 		json.Unmarshal(data, &message)
-
-		// 		context.JSON(http.StatusForbidden, gin.H{"error": message.Message})
-		// 		context.Abort()
-		// 		return
-		// 	}
-		// }
-
 		context.Next()
 	}
 }

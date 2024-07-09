@@ -109,11 +109,6 @@ func (h *authHandler) GetLogged(c *gin.Context) {
 
 	auth, err := h.authService.GetLogged(bearerToken)
 	if err != nil {
-
-		helpers.LogInit(err.Error())
-
-		go helpers.SendLogLocal(c, auth, http.StatusBadRequest, err.Error())
-
 		c.JSON(http.StatusBadRequest, domain.AuthResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -121,8 +116,6 @@ func (h *authHandler) GetLogged(c *gin.Context) {
 
 		return
 	}
-
-	go helpers.SendLogLocal(c, auth, http.StatusOK, "")
 
 	result := domain.AuthResponse{
 		Data:        auth,

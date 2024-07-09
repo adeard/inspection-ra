@@ -31,7 +31,7 @@ func (r *repository) SignIn(auth domain.Auth) (domain.NewUserResponse, error) {
 		auth.Password,
 	}
 
-	url := os.Getenv("USER_SERVICE_URL") + "/api/user/login"
+	url := os.Getenv("NEW_USER_SERVICE_URL") + "/api/user/login"
 
 	body, _ := helpers.SendRequest("POST", url, input)
 

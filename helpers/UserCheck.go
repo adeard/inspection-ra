@@ -35,7 +35,7 @@ func CheckUserAccess(token string) (string, error) {
 }
 
 func GetDetailUser(token string) (domain.NewDetailUserResponse, error) {
-	urladdr := os.Getenv("USER_SERVICE_URL") + "/api/user/detail_by_name_application?name_application=InspectionRA"
+	urladdr := os.Getenv("NEW_USER_SERVICE_URL") + "/api/user/detail_by_name_application?name_application=InspectionRA"
 	req, _ := http.NewRequest("GET", urladdr, nil)
 	req.Header.Add("authenticationToken", token)
 	req.Header.Add("Accept", "application/json")

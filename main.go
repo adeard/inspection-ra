@@ -3,6 +3,7 @@ package main
 import (
 	"inspection-ra/config"
 	"inspection-ra/docs"
+	"inspection-ra/middlewares"
 	"inspection-ra/modules/attachment"
 	"inspection-ra/modules/auth"
 	"inspection-ra/modules/configuration"
@@ -45,6 +46,7 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.AllowAll())
+	router.Use(middlewares.LoggerMiddleware())
 	router.GET("InspectionRA/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"title":         "Inspection RA API Service",
