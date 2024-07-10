@@ -76,7 +76,7 @@ func (h *attachmentHandler) Store(c *gin.Context) {
 		return
 	}
 
-	filename := input.ImageCategory + "_" + time.Now().Format("20060102150405") + ext.Extension()
+	filename := input.ImageCategory + "_" + input.NoInspec + "_" + time.Now().Format("20060102150405") + ext.Extension()
 
 	// dst := path + `\images\`
 	dst := `D:\File_attachment\Inspection_RA\images\`
