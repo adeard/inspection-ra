@@ -362,7 +362,7 @@ definitions:
       message:
         type: string
     type: object
-host: 202.158.14.235:4222
+host: https://service.indoagri.co.id/InspectionRA
 info:
   contact:
     email: support@swagger.io
