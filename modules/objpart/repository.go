@@ -8,6 +8,8 @@ import (
 
 type Repository interface {
 	FindAll() ([]domain.ObjPartData, error)
+	FindAllCause() ([]domain.CauseData, error)
+	FindAllDamage() ([]domain.DamageData, error)
 }
 
 type repository struct {
@@ -23,4 +25,18 @@ func (r *repository) FindAll() ([]domain.ObjPartData, error) {
 	err := r.db.Preload("VehicleTypeData").Find(&objPart).Error
 
 	return objPart, err
+}
+
+func (r *repository) FindAllDamage() ([]domain.DamageData, error) {
+	var damage []domain.DamageData
+	err := r.db.Find(&damage).Error
+
+	return damage, err
+}
+
+func (r *repository) FindAllCause() ([]domain.CauseData, error) {
+	var cause []domain.CauseData
+	err := r.db.Find(&cause).Error
+
+	return cause, err
 }

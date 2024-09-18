@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"encoding/json"
-	"fmt"
 	"inspection-ra/domain"
 	"io/ioutil"
 	"net/http"
@@ -50,8 +49,6 @@ func GetDetailUser(token string) (domain.NewDetailUserResponse, error) {
 	defer resp.Body.Close()
 
 	data, _ := ioutil.ReadAll(resp.Body)
-
-	fmt.Println(data)
 
 	result := domain.NewDetailUserResponse{}
 	json.Unmarshal(data, &result)

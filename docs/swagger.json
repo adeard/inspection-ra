@@ -517,6 +517,124 @@
                 }
             }
         },
+        "/api/v1/notiftype": {
+            "get": {
+                "description": "Get Notif Type",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notif Type"
+                ],
+                "summary": "Get Notif Type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "application",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "catalog_profile",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "description",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "early_no_assignment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notif_category_text",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notif_desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notif_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notification_origin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "number_range",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "partner_determ_proced",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "plant",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "reference_time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "update_group",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.RunAcctResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/domain.NotifTypeData"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/objpart": {
             "get": {
                 "description": "Get Object Part",
@@ -1139,6 +1257,32 @@
                 }
             }
         },
+        "domain.CauseDataResponse": {
+            "type": "object",
+            "properties": {
+                "catalog": {
+                    "type": "string"
+                },
+                "cause": {
+                    "type": "string"
+                },
+                "cause_code": {
+                    "type": "string"
+                },
+                "damage_code": {
+                    "type": "string"
+                },
+                "objpart_code": {
+                    "type": "string"
+                },
+                "vehicle_type": {
+                    "type": "string"
+                },
+                "zinspec_vehicletype_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "domain.ConfigurationData": {
             "type": "object",
             "properties": {
@@ -1174,6 +1318,35 @@
                 },
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.DamageDataResponse": {
+            "type": "object",
+            "properties": {
+                "catalog": {
+                    "type": "string"
+                },
+                "causes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domain.CauseDataResponse"
+                    }
+                },
+                "damage": {
+                    "type": "string"
+                },
+                "damage_code": {
+                    "type": "string"
+                },
+                "objpart_code": {
+                    "type": "string"
+                },
+                "vehicle_type": {
+                    "type": "string"
+                },
+                "zinspec_vehicletype_id": {
+                    "type": "integer"
                 }
             }
         },
@@ -1363,13 +1536,72 @@
                 }
             }
         },
+        "domain.NotifTypeData": {
+            "type": "object",
+            "properties": {
+                "application": {
+                    "type": "string"
+                },
+                "catalog_profile": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "early_no_assignment": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "notif_category_text": {
+                    "type": "string"
+                },
+                "notif_desc": {
+                    "type": "string"
+                },
+                "notif_type": {
+                    "type": "string"
+                },
+                "notification_origin": {
+                    "type": "string"
+                },
+                "number_range": {
+                    "type": "string"
+                },
+                "partner_determ_proced": {
+                    "type": "string"
+                },
+                "plant": {
+                    "type": "string"
+                },
+                "reference_time": {
+                    "type": "string"
+                },
+                "update_group": {
+                    "type": "string"
+                }
+            }
+        },
         "domain.ObjPartDataResponse": {
             "type": "object",
             "properties": {
+                "catalog": {
+                    "type": "string"
+                },
+                "damages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domain.DamageDataResponse"
+                    }
+                },
                 "id": {
                     "type": "integer"
                 },
                 "obj_part": {
+                    "type": "string"
+                },
+                "objpart_code": {
                     "type": "string"
                 },
                 "vehicle_type": {

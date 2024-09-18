@@ -10,6 +10,8 @@ type ObjPartRequest struct {
 	ObjPart              string `json:"obj_part" gorm:"column:obj_part;"`
 	VehicleType          string `json:"vehicle_type" gorm:"column:vehicle_type;"`
 	ZinspecVehicleTypeId int32  `json:"zinspec_vehicletype_id" gorm:"column:zinspec_vehicletype_id;"`
+	ObjPartCode          string `json:"objpart_code" gorm:"column:objpart_code;"`
+	Catalog              string `json:"catalog" gorm:"column:catalog;"`
 }
 
 type ObjPartData struct {
@@ -23,6 +25,7 @@ type ObjPartDataResponse struct {
 	Id              int32  `json:"id" gorm:"column:id"`
 	VehicleTypeCode string `json:"vehicle_type_code" gorm:"column:vehicle_type_code"`
 	ObjPartRequest
+	Damages []DamageDataResponse `json:"damages"`
 }
 
 func (ObjPartData) TableName() string {

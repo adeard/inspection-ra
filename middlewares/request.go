@@ -69,11 +69,7 @@ func LoggerMiddleware() gin.HandlerFunc {
 		}
 
 		if err := db.Create(&logData).Error; err != nil {
-			log.Printf("Error saving request log: %v", err)
-
 			requestLog.Response = err.Error()
-
-			go helpers.SendErrorLog(requestLog)
 		}
 
 		if status != 200 {

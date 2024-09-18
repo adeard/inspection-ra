@@ -3,7 +3,6 @@ package objpart
 import (
 	"fmt"
 	"inspection-ra/domain"
-	"inspection-ra/helpers"
 	"inspection-ra/middlewares"
 	"net/http"
 	"time"
@@ -34,14 +33,8 @@ func NewObjPartHandler(v1 *gin.RouterGroup, objPartService Service) {
 // @Tags Object Part
 func (h *objPartHandler) GetAll(c *gin.Context) {
 	start := time.Now()
-	objPartDataResp := []domain.ObjPartDataResponse{}
-	objPart, err := h.objPartService.GetAll()
+	objPartDataResp, err := h.objPartService.GetAll()
 	if err != nil {
-
-		helpers.LogInit(err.Error())
-
-		go helpers.SendLogLocal(c, "", http.StatusBadRequest, err.Error())
-
 		c.JSON(http.StatusBadRequest, domain.ObjPartResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -49,16 +42,6 @@ func (h *objPartHandler) GetAll(c *gin.Context) {
 
 		return
 	}
-
-	for _, v := range objPart {
-		objPartDataResp = append(objPartDataResp, domain.ObjPartDataResponse{
-			Id:              v.Id,
-			ObjPartRequest:  v.ObjPartRequest,
-			VehicleTypeCode: v.VehicleTypeData.Code,
-		})
-	}
-
-	go helpers.SendLogLocal(c, "", http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.ObjPartResponse{
 		Data:        objPartDataResp,

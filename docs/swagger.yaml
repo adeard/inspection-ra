@@ -79,6 +79,23 @@ definitions:
       message:
         type: string
     type: object
+  domain.CauseDataResponse:
+    properties:
+      catalog:
+        type: string
+      cause:
+        type: string
+      cause_code:
+        type: string
+      damage_code:
+        type: string
+      objpart_code:
+        type: string
+      vehicle_type:
+        type: string
+      zinspec_vehicletype_id:
+        type: integer
+    type: object
   domain.ConfigurationData:
     properties:
       id:
@@ -103,6 +120,25 @@ definitions:
         type: string
       message:
         type: string
+    type: object
+  domain.DamageDataResponse:
+    properties:
+      catalog:
+        type: string
+      causes:
+        items:
+          $ref: '#/definitions/domain.CauseDataResponse'
+        type: array
+      damage:
+        type: string
+      damage_code:
+        type: string
+      objpart_code:
+        type: string
+      vehicle_type:
+        type: string
+      zinspec_vehicletype_id:
+        type: integer
     type: object
   domain.MailboxRequest:
     properties:
@@ -227,11 +263,50 @@ definitions:
       message:
         type: string
     type: object
+  domain.NotifTypeData:
+    properties:
+      application:
+        type: string
+      catalog_profile:
+        type: string
+      description:
+        type: string
+      early_no_assignment:
+        type: string
+      name:
+        type: string
+      notif_category_text:
+        type: string
+      notif_desc:
+        type: string
+      notif_type:
+        type: string
+      notification_origin:
+        type: string
+      number_range:
+        type: string
+      partner_determ_proced:
+        type: string
+      plant:
+        type: string
+      reference_time:
+        type: string
+      update_group:
+        type: string
+    type: object
   domain.ObjPartDataResponse:
     properties:
+      catalog:
+        type: string
+      damages:
+        items:
+          $ref: '#/definitions/domain.DamageDataResponse'
+        type: array
       id:
         type: integer
       obj_part:
+        type: string
+      objpart_code:
         type: string
       vehicle_type:
         type: string
@@ -685,6 +760,77 @@ paths:
       summary: Insert Inspection
       tags:
       - Mob
+  /api/v1/notiftype:
+    get:
+      consumes:
+      - application/json
+      description: Get Notif Type
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: application
+        type: string
+      - in: query
+        name: catalog_profile
+        type: string
+      - in: query
+        name: description
+        type: string
+      - in: query
+        name: early_no_assignment
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: notif_category_text
+        type: string
+      - in: query
+        name: notif_desc
+        type: string
+      - in: query
+        name: notif_type
+        type: string
+      - in: query
+        name: notification_origin
+        type: string
+      - in: query
+        name: number_range
+        type: string
+      - in: query
+        name: partner_determ_proced
+        type: string
+      - in: query
+        name: plant
+        type: string
+      - in: query
+        name: reference_time
+        type: string
+      - in: query
+        name: update_group
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.RunAcctResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.NotifTypeData'
+                  type: array
+              type: object
+      summary: Get Notif Type
+      tags:
+      - Notif Type
   /api/v1/objpart:
     get:
       consumes:

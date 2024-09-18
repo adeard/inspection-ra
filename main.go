@@ -8,6 +8,7 @@ import (
 	"inspection-ra/modules/auth"
 	"inspection-ra/modules/configuration"
 	"inspection-ra/modules/mob"
+	"inspection-ra/modules/notiftype"
 	"inspection-ra/modules/objpart"
 	"inspection-ra/modules/plan"
 	"inspection-ra/modules/runacct"
@@ -64,6 +65,7 @@ func main() {
 	plan.NewPlanHandler(v1, plan.PlanRegistry(db))
 	runacct.NewRunAcctHandler(v1, runacct.RunAcctRegistry(db))
 	objpart.NewObjPartHandler(v1, objpart.ObjPartRegistry(db))
+	notiftype.NewNotifTypeHandler(v1, notiftype.NotifTypeRegistry(db))
 	attachment.NewAttachmentHandler(v1, attachment.AttachmentRegistry(db))
 	vehicletype.NewVehicleTypeHandler(v1, vehicletype.VehicleTypeRegistry(db))
 	configuration.NewConfigurationHandler(v1, configuration.ConfigurationRegistry(db))
