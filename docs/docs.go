@@ -268,6 +268,60 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/damaged": {
+            "post": {
+                "description": "Store Mob Item Damage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mob"
+                ],
+                "summary": "Store Mob Item Damage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " MobItemDamagedRequest Schema ",
+                        "name": "MobItemDamagedRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.MobResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/mailbox": {
             "post": {
                 "description": "Create Log",
@@ -1460,6 +1514,29 @@ const docTemplate = `{
                 },
                 "ztuagri_runacct_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "domain.MobItemDamagedRequest": {
+            "type": "object",
+            "properties": {
+                "causes": {
+                    "type": "string"
+                },
+                "causes_text": {
+                    "type": "string"
+                },
+                "damage": {
+                    "type": "string"
+                },
+                "damage_text": {
+                    "type": "string"
+                },
+                "no_inspec": {
+                    "type": "string"
+                },
+                "obj_part": {
+                    "type": "string"
                 }
             }
         },

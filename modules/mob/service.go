@@ -8,6 +8,7 @@ import (
 type Service interface {
 	GetAll(input domain.MobRequest) ([]domain.MobData, error)
 	Insert(input []domain.MobRequest) (string, error)
+	StoreDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error)
 }
 
 type service struct {
@@ -66,6 +67,12 @@ func (s *service) Insert(input []domain.MobRequest) (string, error) {
 	if len(insertedData) > 0 {
 		result, err = s.repository.Insert(insertedData)
 	}
+
+	return result, err
+}
+
+func (s *service) StoreDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error) {
+	result, err := s.repository.StoreMobItemDamaged(input)
 
 	return result, err
 }

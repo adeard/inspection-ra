@@ -3,7 +3,6 @@ package middlewares
 import (
 	"bytes"
 	"fmt"
-	"inspection-ra/config"
 	"inspection-ra/domain"
 	"inspection-ra/helpers"
 	"io/ioutil"
@@ -59,18 +58,18 @@ func LoggerMiddleware() gin.HandlerFunc {
 			Response:   recorder.body.String(),
 		}
 
-		db := config.Connect()
+		// db := config.Connect()
 
-		logData := domain.MailboxRequest{
-			StatusCode: status,
-			Source:     c.Request.Host + c.Request.RequestURI,
-			Request:    string(bodyBytes),
-			Response:   recorder.body.String(),
-		}
+		// logData := domain.MailboxRequest{
+		// 	StatusCode: status,
+		// 	Source:     c.Request.Host + c.Request.RequestURI,
+		// 	Request:    string(bodyBytes),
+		// 	Response:   recorder.body.String(),
+		// }
 
-		if err := db.Create(&logData).Error; err != nil {
-			requestLog.Response = err.Error()
-		}
+		// if err := db.Create(&logData).Error; err != nil {
+		// 	requestLog.Response = err.Error()
+		// }
 
 		if status != 200 {
 			go helpers.SendErrorLog(requestLog)

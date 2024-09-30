@@ -210,6 +210,21 @@ definitions:
       ztuagri_runacct_id:
         type: integer
     type: object
+  domain.MobItemDamagedRequest:
+    properties:
+      causes:
+        type: string
+      causes_text:
+        type: string
+      damage:
+        type: string
+      damage_text:
+        type: string
+      no_inspec:
+        type: string
+      obj_part:
+        type: string
+    type: object
   domain.MobRequest:
     properties:
       ba:
@@ -606,6 +621,39 @@ paths:
       summary: Check Current Config
       tags:
       - Inspect Configuration
+  /api/v1/damaged:
+    post:
+      consumes:
+      - application/json
+      description: Store Mob Item Damage
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' MobItemDamagedRequest Schema '
+        in: body
+        name: MobItemDamagedRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.MobItemDamagedRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MobResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.MobItemDamagedRequest'
+              type: object
+      summary: Store Mob Item Damage
+      tags:
+      - Mob
   /api/v1/mailbox:
     post:
       consumes:

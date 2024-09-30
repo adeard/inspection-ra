@@ -38,3 +38,21 @@ type MobData struct {
 func (MobRequest) TableName() string {
 	return "zinspec_mob"
 }
+
+type MobItemDamagedRequest struct {
+	NoInspec   string `json:"no_inspec" gorm:"column:no_inspec;"`
+	ObjPart    string `json:"obj_part" gorm:"column:obj_part;"`
+	Damage     string `json:"damage" gorm:"column:damage;"`
+	DamageText string `json:"damage_text" gorm:"column:damage_text;"`
+	Causes     string `json:"causes" gorm:"column:causes;"`
+	CausesText string `json:"causes_text" gorm:"column:causes_text;"`
+}
+
+type MobItemDamagedData struct {
+	Id int32 `json:"id" gorm:"column:id;"`
+	MobItemDamagedRequest
+}
+
+func (MobItemDamagedRequest) TableName() string {
+	return "zinspec_mob_item_damaged"
+}

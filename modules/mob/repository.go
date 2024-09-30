@@ -11,6 +11,7 @@ type Repository interface {
 	FindAll(input domain.MobRequest) ([]domain.MobData, error)
 	GetDetail(input domain.MobRequest) (domain.MobData, error)
 	DeleteBatch(ids []int32) (string, error)
+	StoreMobItemDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error)
 }
 
 type repository struct {
@@ -82,4 +83,10 @@ func (r *repository) DeleteBatch(ints []int32) (string, error) {
 	err := r.db.Delete(&mob, ints).Error
 
 	return "success", err
+}
+
+func (r *repository) StoreMobItemDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error) {
+	err := r.db.Create(&input).Error
+
+	return input, err
 }
