@@ -25,6 +25,7 @@ func NewMobHandler(v1 *gin.RouterGroup, mobService Service) {
 	mob.GET("", middlewares.AuthService(), handler.GetAll)
 	mob.POST("batch", middlewares.AuthService(), handler.Insert)
 	mob.POST("damaged", middlewares.AuthService(), handler.StoreDamaged)
+	mob.POST("damaged/batch", middlewares.AuthService(), handler.InsertDamaged)
 }
 
 // @Summary Get Mob
@@ -148,6 +149,37 @@ func (h *mobHandler) StoreDamaged(c *gin.Context) {
 	c.ShouldBindJSON(&input)
 
 	res, err := h.mobService.StoreDamaged(input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.MobResponse{
+			Message:     err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, domain.MobResponse{
+		Data:        res,
+		ElapsedTime: fmt.Sprint(time.Since(start)),
+	})
+}
+
+// @Summary Store Mob Item Damage
+// @Description Store Mob Item Damage
+// @Accept  json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
+// @Param MobItemDamagedRequest body []domain.MobItemDamagedRequest true " MobItemDamagedRequest Schema "
+// @Produce  json
+// @Success 200 {object} domain.MobResponse
+// @Router /api/v1/damaged [post]
+// @Tags Mob
+func (h *mobHandler) InsertDamaged(c *gin.Context) {
+	start := time.Now()
+	var input []domain.MobItemDamagedRequest
+
+	c.ShouldBindJSON(&input)
+
+	res, err := h.mobService.InsertDamaged(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.MobResponse{
 			Message:     err.Error(),

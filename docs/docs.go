@@ -296,7 +296,10 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                            }
                         }
                     }
                 ],
@@ -304,19 +307,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/domain.MobResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/domain.MobResponse"
                         }
                     }
                 }

@@ -11,6 +11,7 @@ type Repository interface {
 	FindAll(input domain.MobRequest) ([]domain.MobData, error)
 	GetDetail(input domain.MobRequest) (domain.MobData, error)
 	DeleteBatch(ids []int32) (string, error)
+	InsertDamaged(damagedData []domain.MobItemDamagedRequest) (string, error)
 	StoreMobItemDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error)
 }
 
@@ -89,4 +90,19 @@ func (r *repository) StoreMobItemDamaged(input domain.MobItemDamagedRequest) (do
 	err := r.db.Create(&input).Error
 
 	return input, err
+}
+
+func (r *repository) InsertDamaged(damagedData []domain.MobItemDamagedRequest) (string, error) {
+	tx := r.db.Begin()
+
+	err := tx.CreateInBatches(&damagedData, 100).Error
+	if err != nil {
+		tx.Rollback()
+
+		return "error", err
+	}
+
+	tx.Commit()
+
+	return "success", err
 }

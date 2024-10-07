@@ -638,19 +638,16 @@ paths:
         name: MobItemDamagedRequest
         required: true
         schema:
-          $ref: '#/definitions/domain.MobItemDamagedRequest'
+          items:
+            $ref: '#/definitions/domain.MobItemDamagedRequest'
+          type: array
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/domain.MobResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/domain.MobItemDamagedRequest'
-              type: object
+            $ref: '#/definitions/domain.MobResponse'
       summary: Store Mob Item Damage
       tags:
       - Mob

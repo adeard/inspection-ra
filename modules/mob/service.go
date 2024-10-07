@@ -9,6 +9,7 @@ type Service interface {
 	GetAll(input domain.MobRequest) ([]domain.MobData, error)
 	Insert(input []domain.MobRequest) (string, error)
 	StoreDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error)
+	InsertDamaged(input []domain.MobItemDamagedRequest) (string, error)
 }
 
 type service struct {
@@ -73,6 +74,12 @@ func (s *service) Insert(input []domain.MobRequest) (string, error) {
 
 func (s *service) StoreDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error) {
 	result, err := s.repository.StoreMobItemDamaged(input)
+
+	return result, err
+}
+
+func (s *service) InsertDamaged(input []domain.MobItemDamagedRequest) (string, error) {
+	result, err := s.repository.InsertDamaged(input)
 
 	return result, err
 }
