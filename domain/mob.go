@@ -28,6 +28,8 @@ type MobRequest struct {
 	DamDetail            string `json:"dam_detail" gorm:"column:dam_detail"`
 	VersionApp           string `json:"version_app" gorm:"column:version_app"`
 	SyncDate             string `json:"sync_date" form:"sync_date" gorm:"column:sync_date;"`
+	NotifType            string `json:"notif_type" form:"notif_type" gorm:"column:notif_type;"`
+	NotifDesc            string `json:"notif_desc" form:"notif_desc" gorm:"column:notif_desc;"`
 }
 
 type MobData struct {

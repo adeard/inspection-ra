@@ -268,105 +268,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/damaged": {
-            "post": {
-                "description": "Store Mob Item Damage",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Mob"
-                ],
-                "summary": "Store Mob Item Damage",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003cAdd access token here\u003e",
-                        "description": "Insert your access token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": " MobItemDamagedRequest Schema ",
-                        "name": "MobItemDamagedRequest",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/domain.MobResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/damaged/batch": {
-            "post": {
-                "description": "Insert Batch Mob Item Damage",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Mob"
-                ],
-                "summary": "Insert Batch Mob Item Damage",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "default": "Bearer \u003cAdd access token here\u003e",
-                        "description": "Insert your access token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": " MobItemDamagedRequest Schema ",
-                        "name": "MobItemDamagedRequest",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/domain.MobItemDamagedRequest"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/domain.MobResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/mailbox": {
             "post": {
                 "description": "Create Log",
@@ -488,6 +389,16 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "name": "note",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notif_desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "notif_type",
                         "in": "query"
                     },
                     {
@@ -618,6 +529,105 @@ const docTemplate = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/mob/damaged": {
+            "post": {
+                "description": "Store Mob Item Damage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mob"
+                ],
+                "summary": "Store Mob Item Damage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " MobItemDamagedRequest Schema ",
+                        "name": "MobItemDamagedRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.MobResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/mob/damaged/batch": {
+            "post": {
+                "description": "Insert Batch Mob Item Damage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mob"
+                ],
+                "summary": "Insert Batch Mob Item Damage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": " MobItemDamagedRequest Schema ",
+                        "name": "MobItemDamagedRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.MobItemDamagedRequest"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.MobResponse"
                         }
                     }
                 }
@@ -1530,6 +1540,12 @@ const docTemplate = `{
                 "note": {
                     "type": "string"
                 },
+                "notif_desc": {
+                    "type": "string"
+                },
+                "notif_type": {
+                    "type": "string"
+                },
                 "obj_part": {
                     "type": "string"
                 },
@@ -1619,6 +1635,12 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "note": {
+                    "type": "string"
+                },
+                "notif_desc": {
+                    "type": "string"
+                },
+                "notif_type": {
                     "type": "string"
                 },
                 "obj_part": {

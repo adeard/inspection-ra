@@ -189,6 +189,10 @@ definitions:
         type: string
       note:
         type: string
+      notif_desc:
+        type: string
+      notif_type:
+        type: string
       obj_part:
         type: string
       photo:
@@ -248,6 +252,10 @@ definitions:
       no_inspec:
         type: string
       note:
+        type: string
+      notif_desc:
+        type: string
+      notif_type:
         type: string
       obj_part:
         type: string
@@ -621,69 +629,6 @@ paths:
       summary: Check Current Config
       tags:
       - Inspect Configuration
-  /api/v1/damaged:
-    post:
-      consumes:
-      - application/json
-      description: Store Mob Item Damage
-      parameters:
-      - default: Bearer <Add access token here>
-        description: Insert your access token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: ' MobItemDamagedRequest Schema '
-        in: body
-        name: MobItemDamagedRequest
-        required: true
-        schema:
-          $ref: '#/definitions/domain.MobItemDamagedRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/domain.MobResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/domain.MobItemDamagedRequest'
-              type: object
-      summary: Store Mob Item Damage
-      tags:
-      - Mob
-  /api/v1/damaged/batch:
-    post:
-      consumes:
-      - application/json
-      description: Insert Batch Mob Item Damage
-      parameters:
-      - default: Bearer <Add access token here>
-        description: Insert your access token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: ' MobItemDamagedRequest Schema '
-        in: body
-        name: MobItemDamagedRequest
-        required: true
-        schema:
-          items:
-            $ref: '#/definitions/domain.MobItemDamagedRequest'
-          type: array
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/domain.MobResponse'
-      summary: Insert Batch Mob Item Damage
-      tags:
-      - Mob
   /api/v1/mailbox:
     post:
       consumes:
@@ -755,6 +700,12 @@ paths:
         type: string
       - in: query
         name: note
+        type: string
+      - in: query
+        name: notif_desc
+        type: string
+      - in: query
+        name: notif_type
         type: string
       - in: query
         name: obj_part
@@ -836,6 +787,69 @@ paths:
                   type: array
               type: object
       summary: Insert Inspection
+      tags:
+      - Mob
+  /api/v1/mob/damaged:
+    post:
+      consumes:
+      - application/json
+      description: Store Mob Item Damage
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' MobItemDamagedRequest Schema '
+        in: body
+        name: MobItemDamagedRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.MobItemDamagedRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MobResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.MobItemDamagedRequest'
+              type: object
+      summary: Store Mob Item Damage
+      tags:
+      - Mob
+  /api/v1/mob/damaged/batch:
+    post:
+      consumes:
+      - application/json
+      description: Insert Batch Mob Item Damage
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' MobItemDamagedRequest Schema '
+        in: body
+        name: MobItemDamagedRequest
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/domain.MobItemDamagedRequest'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.MobResponse'
+      summary: Insert Batch Mob Item Damage
       tags:
       - Mob
   /api/v1/notiftype:

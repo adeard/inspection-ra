@@ -140,7 +140,7 @@ func (h *mobHandler) Insert(c *gin.Context) {
 // @Param MobItemDamagedRequest body domain.MobItemDamagedRequest true " MobItemDamagedRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.MobResponse{data=domain.MobItemDamagedRequest}
-// @Router /api/v1/damaged [post]
+// @Router /api/v1/mob/damaged [post]
 // @Tags Mob
 func (h *mobHandler) StoreDamaged(c *gin.Context) {
 	start := time.Now()
@@ -171,7 +171,7 @@ func (h *mobHandler) StoreDamaged(c *gin.Context) {
 // @Param MobItemDamagedRequest body []domain.MobItemDamagedRequest true " MobItemDamagedRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.MobResponse
-// @Router /api/v1/damaged/batch [post]
+// @Router /api/v1/mob/damaged/batch [post]
 // @Tags Mob
 func (h *mobHandler) InsertDamaged(c *gin.Context) {
 	start := time.Now()
