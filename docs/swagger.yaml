@@ -638,6 +638,39 @@ paths:
         name: MobItemDamagedRequest
         required: true
         schema:
+          $ref: '#/definitions/domain.MobItemDamagedRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.MobResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.MobItemDamagedRequest'
+              type: object
+      summary: Store Mob Item Damage
+      tags:
+      - Mob
+  /api/v1/damaged/batch:
+    post:
+      consumes:
+      - application/json
+      description: Insert Batch Mob Item Damage
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ' MobItemDamagedRequest Schema '
+        in: body
+        name: MobItemDamagedRequest
+        required: true
+        schema:
           items:
             $ref: '#/definitions/domain.MobItemDamagedRequest'
           type: array
@@ -648,7 +681,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/domain.MobResponse'
-      summary: Store Mob Item Damage
+      summary: Insert Batch Mob Item Damage
       tags:
       - Mob
   /api/v1/mailbox:

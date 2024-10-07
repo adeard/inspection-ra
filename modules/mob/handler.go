@@ -164,14 +164,14 @@ func (h *mobHandler) StoreDamaged(c *gin.Context) {
 	})
 }
 
-// @Summary Store Mob Item Damage
-// @Description Store Mob Item Damage
+// @Summary Insert Batch Mob Item Damage
+// @Description Insert Batch Mob Item Damage
 // @Accept  json
 // @Param Authorization header string true "Insert your access token" default(Bearer <Add access token here>)
 // @Param MobItemDamagedRequest body []domain.MobItemDamagedRequest true " MobItemDamagedRequest Schema "
 // @Produce  json
 // @Success 200 {object} domain.MobResponse
-// @Router /api/v1/damaged [post]
+// @Router /api/v1/damaged/batch [post]
 // @Tags Mob
 func (h *mobHandler) InsertDamaged(c *gin.Context) {
 	start := time.Now()
