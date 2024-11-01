@@ -48,6 +48,7 @@ type MobItemDamagedRequest struct {
 	DamageText string `json:"damage_text" gorm:"column:damage_text;"`
 	Causes     string `json:"causes" gorm:"column:causes;"`
 	CausesText string `json:"causes_text" gorm:"column:causes_text;"`
+	LineItem   int    `json:"line_item" gorm:"column:line_item;"`
 }
 
 type MobItemDamagedData struct {

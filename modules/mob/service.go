@@ -79,6 +79,16 @@ func (s *service) StoreDamaged(input domain.MobItemDamagedRequest) (domain.MobIt
 }
 
 func (s *service) InsertDamaged(input []domain.MobItemDamagedRequest) (string, error) {
+
+	// for i, inputDatas := range input {
+	// 	input[i].LineItem = 1
+	// 	getExistingInput, _ := s.repository.FindAllDamaged(inputDatas)
+
+	// 	if len(getExistingInput) > 0 {
+	// 		input[i].LineItem = len(getExistingInput) + 1
+	// 	}
+	// }
+
 	result, err := s.repository.InsertDamaged(input)
 
 	return result, err

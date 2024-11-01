@@ -12,6 +12,7 @@ type Repository interface {
 	GetDetail(input domain.MobRequest) (domain.MobData, error)
 	DeleteBatch(ids []int32) (string, error)
 	InsertDamaged(damagedData []domain.MobItemDamagedRequest) (string, error)
+	FindAllDamaged(input domain.MobItemDamagedRequest) ([]domain.MobItemDamagedData, error)
 	StoreMobItemDamaged(input domain.MobItemDamagedRequest) (domain.MobItemDamagedRequest, error)
 }
 
@@ -34,6 +35,20 @@ func (r *repository) FindAll(input domain.MobRequest) ([]domain.MobData, error) 
 
 	if input.PlanDate != "" {
 		q = q.Where("plan_date = ?", input.PlanDate)
+	}
+
+	err := q.Find(&mob).Error
+
+	return mob, err
+}
+
+func (r *repository) FindAllDamaged(input domain.MobItemDamagedRequest) ([]domain.MobItemDamagedData, error) {
+	var mob []domain.MobItemDamagedData
+
+	q := r.db.Table("zinspec_mob_item_damaged")
+
+	if input.NoInspec != "" {
+		q = q.Where("no_inspec = ?", input.NoInspec)
 	}
 
 	err := q.Find(&mob).Error
