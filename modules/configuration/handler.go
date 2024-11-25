@@ -44,8 +44,6 @@ func (h *configurationHandler) CheckConfig(c *gin.Context) {
 
 		helpers.LogInit(err.Error())
 
-		go helpers.SendLogLocal(c, configurationRequest, http.StatusBadRequest, err.Error())
-
 		c.JSON(http.StatusBadRequest, domain.ConfigurationResponse{
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
@@ -53,8 +51,6 @@ func (h *configurationHandler) CheckConfig(c *gin.Context) {
 
 		return
 	}
-
-	go helpers.SendLogLocal(c, configurationRequest, http.StatusOK, "")
 
 	c.JSON(http.StatusOK, domain.ConfigurationResponse{
 		Data:        configuration,

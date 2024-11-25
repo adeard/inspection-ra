@@ -154,8 +154,6 @@ func (h *planHandler) Insert(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 
-		go helpers.SendLogLocal(c, planRequest, http.StatusBadRequest, err.Error())
-
 		c.AbortWithError(400, err)
 		return
 	}
